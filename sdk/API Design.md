@@ -2,19 +2,49 @@
 
 ## TODO: Let's reformat this collectively to demonstrate what we think the API to look like.
 
+COMMANDS
+- As long as we aren't talking about components. Model devices is same as direct methods for non-model devices. Once we add components to the mix we have extra level, need to specify the name of the component that the command belongs to. Convention is "componentname*"....
+
+PROPERTIES
+- Get's more complicated. Different languages are different.
+- How much are they abstracting away from the device twin semantics. From the non-pnp case, we have the notion of property being a name-value pair in the device twin. 
+- Some of the APIs are more lower level, ask the developer (let the developer) mess with the twin more directly vs. abstracting it more. 
+- In C# it is more abstracted. In Node/Python more directly interacting with twins.
+- Properties for non-model devices are still properties for root compoonent. Once you add subcomponents there is an extra level in the device twin where each component is isolated. 
+
+
+BERT COMMENT
+- Do you see developers in both camps? Someone using the new APIs and the older APIs?
+- A (STEFAN): No good reason not to use the new APIs. Even if you don't care about modeling, don't announce model, would and should use the new API. Nothing you would lose. 
+- Using those conventions is the only way for your device to work for Central. Of course if you don't want to work with central then you can do that we won't prevent folks from doing that but don't want peopel to go down that path.
+
+Gets tricky with things that we supported in the previous scenario.
+
+"We should do right by the specific languages and communities we are serving, and do right by our customers."
+
+CARTER
+- When referring to the classic devices and we move over to the new "COMMAND" thing. "COMMAND"s would be backward compatible with older API. Using direct method. So it is a clean replacement.
+
+MQTT BROKER
+- "Primarily for people who don't want to use our SDKs"
+
+Greenfield Customers
+- Opt into Azure want to build best in class.
+
+
 
 #### Common
 
-```csharp
+```ts
 
-public abstract class PayloadConvention {
+abstract class PayloadConvention {
     protected PayloadConvention();
     public abstract PayloadEncoder PayloadEncoder { get; }
     public abstract PayloadSerializer PayloadSerializer { get; }
     public virtual byte[] GetObjectBytes(object objectToSendWithConvention);
 }
 
-public abstract class PayloadEncoder {
+abstract class PayloadEncoder {
     protected PayloadEncoder();
     public abstract Encoding ContentEncoding { get; }
     public abstract byte[] EncodeStringToByteArray(string contentPayload);

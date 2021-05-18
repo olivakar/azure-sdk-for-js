@@ -36,10 +36,14 @@ Greenfield Customers
 #### Common
 
 ```ts
-
+// API to specify JSON Stringify and JSON Parse essentially
+// want to be able to feed the client a way of saying utf-8, cbor, etc.
 abstract class PayloadConvention {
     protected PayloadConvention();
+    // what kind of encoding do we have
     public abstract PayloadEncoder PayloadEncoder { get; }
+    // what kind of serializer do we have. The data coming off the wire will be in this different type of 
+    // serialization. This affects how we process things from twin for instance. If it's CBOR.
     public abstract PayloadSerializer PayloadSerializer { get; }
     public virtual byte[] GetObjectBytes(object objectToSendWithConvention);
 }
@@ -141,10 +145,18 @@ public Task SubscribeToWritablePropertiesEventAsync(Func<ClientPropertyCollectio
 #### All related types
 
 ```csharp
+
+// they do a whole bunch of stuff because they have bad object forms in C#, we have objects we can generate on the fly
+// so we don't have to deal with any of this. No collections etc...
 public class ClientProperties : ClientPropertyCollection {
     public ClientPropertyCollection Writable { get; private set; }
 }
 
+// All this is so they can build up a particular property (referring to a key value pair that goes into a twin).
+// In PnP can have properties at the root level, then can have interfaces that have properties associated with it.
+// This is much easier in Node, so we can essentially implement this by manipulating the object.
+
+// THIS IS CODE THAT THE CUSTOMER SHOULD DEFINE.
 public class ClientPropertyCollection : PayloadCollection {
     public ClientPropertyCollection();
     public long Version { get; protected set; }
@@ -160,6 +172,7 @@ public class ClientPropertyCollection : PayloadCollection {
     public virtual bool TryGetValue<T>(string componentName, string propertyName, out T propertyValue);
 }
 
+// not necessary.
 public interface IWritablePropertyResponse {
     int AckCode { get; set; }
     string AckDescription { get; set; }
@@ -167,6 +180,7 @@ public interface IWritablePropertyResponse {
     object Value { get; set; }
 }
 
+// They're using this to send stuff out in JSON. We really don't care about this.
 public sealed class NewtonsoftJsonWritablePropertyResponse : IWritablePropertyResponse {
     public NewtonsoftJsonWritablePropertyResponse(object propertyValue, int ackCode, long ackVersion, string ackDescription = null);
     public int AckCode { get; set; }
@@ -175,6 +189,7 @@ public sealed class NewtonsoftJsonWritablePropertyResponse : IWritablePropertyRe
     public object Value { get; set; }
 }
 
+// just reporting the version and the requestId. The response to when you send property update
 public class ClientPropertiesUpdateResponse {
     public ClientPropertiesUpdateResponse();
     public string RequestId { get; internal set; }
@@ -206,6 +221,7 @@ public class TelemetryCollection : PayloadCollection {
     public override void AddOrUpdate(string telemetryName, object telemetryValue);
 }
 
+// Telemetry
 public class TelemetryMessage : Message {
     public TelemetryMessage(string componentName = null);
     public new string ContentEncoding { get; internal set; }
@@ -213,6 +229,11 @@ public class TelemetryMessage : Message {
     public TelemetryCollection Telemetry { get; set; }
     public override Stream GetBodyStream();
 }
+
+public interface TelemetryMessage {
+    public 
+}
+
 ```
 
 ### Commands

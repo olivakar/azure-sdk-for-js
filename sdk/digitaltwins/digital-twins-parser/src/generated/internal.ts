@@ -100,7 +100,6 @@ export * from './namedLatentTypeInfoImpl';
 export * from './referenceInfoImpl';
 export * from './supplementalPropertyInfoImpl';
 export * from './supplementalTypeInfoImpl';
-export * from './supplementalTypeCollectionImpl';
 export * from './modelParserImpl';
 
 export * from './standardElements';
@@ -154,3 +153,4 @@ export * from './referenceKinds';
 export * from './extensionKind';
 
 export * from './createParser';
+

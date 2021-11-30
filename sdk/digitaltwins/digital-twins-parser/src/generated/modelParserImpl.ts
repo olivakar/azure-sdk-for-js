@@ -8,7 +8,7 @@
 
 import {DtmiResolver, ElementPropertyConstraint, ModelParsingOption, ParsingError, createParsingError, ResolutionError, ParsingException, JsonSyntaxError} from '../parser';
 import {AggregateContext, EntityInfoImpl, Model, ModelDict, ModelParser, ParsedObjectPropertyInfo, PartitionTypeCollection, StandardElements, RootableTypeCollection} from './internal';
-import {SupplementalTypeCollectionImpl} from './internal';
+import {SupplementalTypeCollection} from './internal';
 /**
  * Class for parsing the DTDL langauge.
 **/
@@ -49,12 +49,12 @@ export class ModelParserImpl implements ModelParser {
   dtmiResolver?: DtmiResolver;
   options: ModelParsingOption;
   maxDtdlVersion?: number;
-  static supplementalTypeCollection: SupplementalTypeCollectionImpl = new SupplementalTypeCollectionImpl();
+  static supplementalTypeCollection: SupplementalTypeCollection = new SupplementalTypeCollection();
 
-  getSupplementalTypeCollection() : SupplementalTypeCollectionImpl {
+  getSupplementalTypeCollection() : SupplementalTypeCollection {
     return ModelParserImpl.retrieveSupplementalTypeCollection();
   }
-  static retrieveSupplementalTypeCollection() : SupplementalTypeCollectionImpl {
+  static retrieveSupplementalTypeCollection() : SupplementalTypeCollection {
     return this.supplementalTypeCollection;
   }
 

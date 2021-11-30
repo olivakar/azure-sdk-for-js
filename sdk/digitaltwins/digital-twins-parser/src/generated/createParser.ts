@@ -12,7 +12,7 @@ import {ModelParserImpl} from './internal';
 /**
  * Function for creation of the model parser.
 **/
-export function createParser(parsingOptions: ModelParsingOption): ModelParser {
+export function createParser(parsingOptions: ModelParsingOption) {
   const impl = new ModelParserImpl();
   impl.options = parsingOptions;
   return impl;

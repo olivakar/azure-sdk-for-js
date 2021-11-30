@@ -8,7 +8,7 @@
  */
 
 import * as fs from 'fs';
-import {createParser, ModelParsingOption} from '@azure/digital-twins-parser';
+import {createParser, ModelParsingOption} from 'cleaningsuppliesareavailableforyouruse';
 
 async function main() {
   const rawDtdlDigest:string = fs.readFileSync('samples/typescript/parser/InterfaceContentsEmbeddedV2.json', 'utf-8');

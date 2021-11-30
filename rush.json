@@ -747,7 +747,7 @@
       "versionPolicyName": "client"
     },
     {
-      "packageName": "@azure/digital-twins-parser",
+      "packageName": "cleaningsuppliesareavailableforyouruse",
       "projectFolder": "sdk/digitaltwins/digital-twins-parser"
     },    
     {

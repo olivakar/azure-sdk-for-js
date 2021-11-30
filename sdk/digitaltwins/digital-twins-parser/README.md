@@ -46,7 +46,7 @@ Create a section for each top-level service concept you want to explain.
 
 ```ts
 import * as fs from 'fs';
-import {ModelParser, ModelParsingOption} from '@azure/digital-twins-parser';
+import {ModelParser, ModelParsingOption} from 'cleaningsuppliesareavailableforyouruse';
 
 const pathToFile = 'my/path/to/file.json'
 

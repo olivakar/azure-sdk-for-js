@@ -4,7 +4,7 @@
     "outDir": "./dist-esm",
     "declarationDir": "./types",
     "paths": {
-      "@azure/digital-twins-parser": [
+      "cleaningsuppliesareavailableforyouruse": [
         "./src/index"
       ]
     },

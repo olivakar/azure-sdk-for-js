@@ -28,3 +28,7 @@ extends:
     Artifacts:
       - name: azure-digital-twins-core
         safeName: azuredigitaltwinscore
+      - name: azure-digital-twins-parser
+        safeName: azuredigitaltwinsparser
+      - name: azure-digital-twins-parser-generator
+        safeName: azuredigitaltwinsparsergenerator

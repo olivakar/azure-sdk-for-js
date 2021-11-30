@@ -74,8 +74,10 @@ export interface ContentInfo extends NamedEntityInfo {
     entityKind: 'command' | 'component' | 'property' | 'relationship' | 'telemetry';
 }
 
+// Warning: (ae-forgotten-export) The symbol "ModelParserImpl" needs to be exported by the entry point index.d.ts
+//
 // @public
-export function createParser(parsingOptions: ModelParsingOption): ModelParser;
+export function createParser(parsingOptions: ModelParsingOption): ModelParserImpl;
 
 // @public (undocumented)
 export interface DateInfo extends TemporalSchemaInfo {
@@ -421,8 +423,11 @@ export interface SupplementalPropertyInfo {
     valueConstraint?: ValueConstraint;
 }
 
-// @public (undocumented)
-export interface SupplementalTypeCollection {
+// @public
+export class SupplementalTypeCollection {
+    constructor();
+    // (undocumented)
+    connectPropertySetters(): void;
     // (undocumented)
     supplementalTypes: Map<string, SupplementalTypeInfo>;
 }

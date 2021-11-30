@@ -4,5 +4,5 @@
 
 export {ModelParsingOption} from './parser';
 export {ModelParserImpl} from './parser';
-export {CodeGenerator} from './codeGenerator';
+export * from './codeGenerator';
 export {CodeGenerator as ParserCodeGenerator} from './parserGenerator/codeGenerator'

@@ -6,15 +6,15 @@
  */
 
 import {
-  CodeGenerator
+  TsLibrary, TsDeclarationType, TsAccess
 } from '@azure/digital-twins-parser-generator';
 
 function main() {
-  const tsLibrary = new CodeGenerator.TsLibrary('./example_library');
+  const tsLibrary = new TsLibrary('./example_library');
   const tsClass = tsLibrary.class({
     name: 'testClass',
     exports: true,
-    inheritance: [{name: 'WindInterface', type: CodeGenerator.TsDeclarationType.Interface}],
+    inheritance: [{name: 'WindInterface', type: TsDeclarationType.Interface}],
   });
 
   // Add imports
@@ -29,10 +29,10 @@ function main() {
 
   // Populate Fields
   tsClass
-    .field({name: '_units', access: CodeGenerator.TsAccess.Private, type: 'string'})
-    .field({name: '_windPower', access: CodeGenerator.TsAccess.Private, type: 'number'})
-    .field({name: '_windSpeed', access: CodeGenerator.TsAccess.Private, type: 'number', optional: true})
-    .field({name: '_name', access: CodeGenerator.TsAccess.Private, type: 'string'});
+    .field({name: '_units', access: TsAccess.Private, type: 'string'})
+    .field({name: '_windPower', access: TsAccess.Private, type: 'number'})
+    .field({name: '_windSpeed', access: TsAccess.Private, type: 'number', optional: true})
+    .field({name: '_name', access: TsAccess.Private, type: 'string'});
 
   // Create Constructor with Super
   tsClass

@@ -11126,7 +11126,7 @@ packages:
     dev: false
 
   file:projects/digital-twins-parser-generator.tgz:
-    resolution: {integrity: sha512-Jz8A3rgnkPBFP+xn/pa3JsnfgSmsZiVToo8bldHoAaEjZipOhP7FY60RYSYH2EKzka4rNliZXCv08opNcORgrA==, tarball: file:projects/digital-twins-parser-generator.tgz}
+    resolution: {integrity: sha512-xnquxdfvwEol4YBs67dggpTptsxDopREYmIja9BXTm5km7wc72pfNusZn9jH7jutJHn6leT3PZDYRuL0vyZlEg==, tarball: file:projects/digital-twins-parser-generator.tgz}
     name: '@rush-temp/digital-twins-parser-generator'
     version: 0.0.0
     dependencies:
@@ -11138,10 +11138,12 @@ packages:
       '@rollup/plugin-node-resolve': 8.4.0_rollup@1.32.1
       '@rollup/plugin-replace': 2.4.2_rollup@1.32.1
       '@types/chai': 4.2.22
+      '@types/chai-as-promised': 7.1.4
       '@types/mocha': 7.0.2
       '@types/node': 16.11.11
       '@types/sinon': 9.0.11
       chai: 4.3.4
+      chai-as-promised: 7.1.1_chai@4.3.4
       cross-env: 7.0.3
       eslint: 7.32.0
       events: 3.3.0
@@ -11181,7 +11183,7 @@ packages:
     dev: false
 
   file:projects/digital-twins-parser.tgz:
-    resolution: {integrity: sha512-s+1PnLPRPkxqq5z6+Vcc7WFMdTB4WYQu8n4cMQZwpBgKhtvmyZZTmymhlScYxbtMPunrEr77SrOGo4lsSE7OlA==, tarball: file:projects/digital-twins-parser.tgz}
+    resolution: {integrity: sha512-lAbX3oXEn947z8cNAk9vaJEQtpi/i220HZpA4zXeqPufOqPdr/pJ8HYucKKSeGl4yvoKu4rHU7coxNDaVxPd9w==, tarball: file:projects/digital-twins-parser.tgz}
     name: '@rush-temp/digital-twins-parser'
     version: 0.0.0
     dependencies:
@@ -11193,6 +11195,7 @@ packages:
       '@rollup/plugin-node-resolve': 8.4.0_rollup@1.32.1
       '@rollup/plugin-replace': 2.4.2_rollup@1.32.1
       '@types/chai': 4.2.22
+      '@types/chai-as-promised': 7.1.4
       '@types/mocha': 7.0.2
       '@types/node': 12.20.37
       '@types/sinon': 9.0.11

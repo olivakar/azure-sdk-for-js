@@ -73,3 +73,4 @@ export class SingularIdentifierProperty extends IdentifierProperty {
           .line('return true');
   }
 }
+

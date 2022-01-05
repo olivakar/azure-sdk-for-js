@@ -3,6 +3,6 @@
 // NOTE: This file is manipulated by the CI pipeline, so if you make changes be sure you aren't breaking the CI pipeline.
 
 export {ModelParsingOption} from './parser';
-export {ModelParserImpl} from './parser';
-export * from './codeGenerator';
-export {CodeGenerator as ParserCodeGenerator} from './parserGenerator/codeGenerator'
+export {ModelParserImpl} from './generated';
+export {ModelParser} from './generated';
+export {createParser} from './generated';

@@ -37,6 +37,7 @@ export abstract class TypedLiteralProperty extends LiteralProperty {
 
   public addMembers(dtdlVersions: number[], obverseClass: TsClass, obverseInterface:TsInterface, classIsAugmentable:boolean) : void {
     super.addMembers(dtdlVersions, obverseClass, obverseInterface, classIsAugmentable);
+
     for (const dtdlVersion of dtdlVersions) {
       if (Object.prototype.hasOwnProperty.call(this.propertyDigest, dtdlVersion) && this.propertyDigest[dtdlVersion].pattern !== undefined) {
         // TODO change to being intialized inside the constructor later.

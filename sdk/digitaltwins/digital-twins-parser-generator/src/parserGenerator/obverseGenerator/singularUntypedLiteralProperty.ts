@@ -31,6 +31,7 @@ export class SingularUntypedLiteralProperty extends UntypedLiteralProperty {
   public get propertyType(): string {
     return 'any';
   }
+
   public generateConstructorCode(obverseClass:TsClass, ctorScope: TsScope): void {
     // NOTE for Node : any SINGULAR NON-LITERAL types should not be initialized inside a Constructor.
   }

@@ -109,3 +109,5 @@ export class AggregateContextGenerator implements TypeGenerator {
     contextMethodBody.line(`versionedContexts.push(${contextVar});`);
   }
 }
+
+

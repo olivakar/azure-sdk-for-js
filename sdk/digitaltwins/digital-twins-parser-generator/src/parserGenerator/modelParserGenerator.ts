@@ -46,7 +46,7 @@ export class ModelParserGenerator implements TypeGenerator {
     parserClass.docString.line(`Class for parsing the DTDL langauge.`);
     parserClass.import(`import {DtmiResolver, ElementPropertyConstraint, ModelParsingOption, ParsingError, createParsingError, ResolutionError, ParsingException, JsonSyntaxError} from '../parser';`);
     parserClass.import(`import {AggregateContext, ${this._baseClassName}, Model, ModelDict, ModelParser, ParsedObjectPropertyInfo, PartitionTypeCollection, StandardElements, RootableTypeCollection} from './internal';`);
-    parserClass.import(`import {SupplementalTypeCollection} from './internal';`);
+    parserClass.import(`import {SupplementalTypeCollectionImpl} from './internal';`);
     parserClass.inline('./src/parserPartial/modelParserImpl.ts', 'fields');
     parserClass.ctor.body.inline('./src/parserPartial/modelParserImpl.ts', 'constructor');
     parserClass.inline('./src/parserPartial/modelParserImpl.ts', 'methods');

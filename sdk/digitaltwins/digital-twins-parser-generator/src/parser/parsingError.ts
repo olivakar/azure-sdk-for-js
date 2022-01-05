@@ -25,3 +25,4 @@ export interface ParsingErrorParams {
 export function createParsingError(validationId:string, errorParams:ParsingErrorParams) : ParsingError {
   return new ParsingErrorImpl(validationId, errorParams);
 }
+

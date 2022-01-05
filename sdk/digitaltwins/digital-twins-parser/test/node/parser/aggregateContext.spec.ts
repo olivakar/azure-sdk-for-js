@@ -2,7 +2,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {AggregateContext} from '../../../src/generated';
+import {AggregateContext} from '../../../src/parser';
 import {ParsingError} from '../../../src/parser/parsingError';
 import {expect} from 'chai';
 

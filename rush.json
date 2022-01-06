@@ -749,10 +749,6 @@
     {
       "packageName": "@azure/digital-twins-parser",
       "projectFolder": "sdk/digitaltwins/digital-twins-parser"
-    },    
-    {
-      "packageName": "@azure/digital-twins-parser-generator",
-      "projectFolder": "sdk/digitaltwins/digital-twins-parser-generator"
     },
     {
       "packageName": "@azure-tests/perf-ai-form-recognizer",

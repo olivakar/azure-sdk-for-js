@@ -1,4 +1,8 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 /* eslint-disable no-undef */
+/* eslint-disable no-unused-expressions */
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 

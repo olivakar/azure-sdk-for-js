@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 /* eslint-disable no-undef */
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
@@ -33,9 +36,9 @@ describe('Tests of ResultFormatter class', function() {
       throw err;
     }
     filenames.forEach((filename: string) => {
-      fs.readFile(testCaseFolder + filename, (err: NodeJS.ErrnoException | null, data: Buffer) => {
-        if (err) {
-          throw err;
+      fs.readFile(testCaseFolder + filename, (readFileErr: NodeJS.ErrnoException | null, data: Buffer) => {
+        if (readFileErr) {
+          throw readFileErr;
         }
 
         const testCases: ResultFormatterTestCase[] = JSON.parse(data.toString());

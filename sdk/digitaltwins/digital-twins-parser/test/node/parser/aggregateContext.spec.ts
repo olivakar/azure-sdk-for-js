@@ -1,6 +1,8 @@
-/* eslint-disable no-undef */
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
+
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-expressions */
 
 import {AggregateContext} from '../../../src/parser';
 import {ParsingError} from '../../../src/parser/parsingError';

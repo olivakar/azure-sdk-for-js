@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT license.
+
 /* eslint-disable no-undef */
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
@@ -37,7 +40,7 @@ function getTestDescription(filename: string, valid: boolean): string {
     }).replace('dtmi', 'DTMI');
 }
 
-function testForSuccess(idText: string, expectation: DtmiTestCaseExpectation) {
+function testForSuccess(idText: string, expectation: DtmiTestCaseExpectation): void {
   const dtmi = new DTMI(idText);
 
   if (Object.prototype.hasOwnProperty.call(expectation, 'MajorVersion')) {
@@ -83,7 +86,7 @@ function testForSuccess(idText: string, expectation: DtmiTestCaseExpectation) {
   }
 }
 
-function testForThrow(idText: string) {
+function testForThrow(idText: string): void {
   it('throw', function() {
     expect(function() {
       new DTMI(idText);

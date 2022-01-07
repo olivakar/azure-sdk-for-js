@@ -1,7 +1,9 @@
-/* eslint-disable sort-imports */
-/* eslint-disable no-undef */
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
+
+/* eslint-disable sort-imports */
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-expressions */
 
 import * as fs from 'fs';
 import {expect, use as useChai} from 'chai';
@@ -98,7 +100,7 @@ function getTestDescription(filename: string, valid: boolean): string {
   return 'will ' + (valid ? 'succeed' : 'throw') + ' on ' + getTestName(filename);
 }
 
-async function testForSuccess(modelParser: ModelParser, input: string[], expectation: ValidExpectation) {
+async function testForSuccess(modelParser: ModelParser, input: string[], expectation: ValidExpectation): Promise<void> {
   const model = await modelParser.parse(input);
 
   if (Object.prototype.hasOwnProperty.call(expectation, 'elementCount')) {
@@ -130,7 +132,7 @@ async function testForSuccess(modelParser: ModelParser, input: string[], expecta
               } else if ((actualValues instanceof InDTMI)) {
                 expect(actualValues.value, 'element ' + expectedElement.id + ' property ' + property).to.deep.equal(expectedElement.properties[property]);
               } else if (Array.isArray(actualValues)) {
-                for (let counter:number = 1; counter<actualValues.length; counter++) {
+                for (let counter:number = 1; counter < actualValues.length; counter++) {
                   const actualValue = actualValues[counter];
                   const expectedValue = expectedElement.properties[property][counter];
                   if (Object.prototype.hasOwnProperty.call(actualValue, 'id')) { // just an object
@@ -200,15 +202,15 @@ async function testForSuccess(modelParser: ModelParser, input: string[], expecta
 
 function getMatchingError(parsingErrors: ParsingError[], errorInfo: ErrorInfo): ParsingError {
   for (const parsingError of parsingErrors) {
-    if (parsingError.validationId == errorInfo.ValidationID && (!errorInfo.PrimaryID || parsingError.primaryId == errorInfo.PrimaryID)) {
+    if (parsingError.validationId === errorInfo.ValidationID && (!errorInfo.PrimaryID || parsingError.primaryId === errorInfo.PrimaryID)) {
       return parsingError;
     }
   }
   throw new Error('failed to receive expected error with ValidationID=' + errorInfo.ValidationID + (errorInfo.PrimaryID ? ' and PrimaryID=' + errorInfo.PrimaryID : ''));
 }
 
-async function testForThrow(modelParser: ModelParser, input: string[], expectation: InvalidExpectation) {
-  return expect(modelParser.parse(input), 'ModelParser.parseAsync() did not throw').to.be.rejected.then((error: any) => {
+async function testForThrow(modelParser: ModelParser, input: string[], expectation: InvalidExpectation): Promise<void> {
+  return expect(modelParser.parse(input), 'ModelParser.parseAsync() did not throw').to.be.rejected.then((error: any): void => {
     if (Object.prototype.hasOwnProperty.call(expectation, 'parsingErrors')) {
       expect(error, 'thrown exception is not a ParsingException').to.have.property('errors');
 
@@ -243,6 +245,8 @@ async function testForThrow(modelParser: ModelParser, input: string[], expectati
       expect(error, 'thrown exception is not a ResolutionError').to.have.property('undefinedIdentifiers');
       expect(error.undefinedIdentifiers).to.have.members(expectation.unresolvedIdentifiers as string[], 'undefined identifiers did not match expectation');
     }
+
+    return undefined
   });
 }
 
@@ -307,6 +311,7 @@ describe('Tests of ModelParser', function() {
           testCase.options.includes('ParseAllowsIdReferenceSyntax') ||
           testCase.options.includes('ResolveAllowsIdReferenceSyntax')) {
             // these are all being skipped because they will not be implemented in JS.
+            // eslint-disable-next-line
             this.skip();
           }
           // this.skip();

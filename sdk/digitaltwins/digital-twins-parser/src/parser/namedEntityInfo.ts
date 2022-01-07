@@ -6,9 +6,22 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-import {EntityInfo} from './internal';
-export interface NamedEntityInfo extends EntityInfo
-{
-  entityKind: 'command'|'commandpayload'|'component'|'enumvalue'|'field'|'mapkey'|'mapvalue'|'property'|'relationship'|'telemetry'|'unitattribute'|'commandrequest'|'commandresponse'|'namedlatenttype';
+import { EntityInfo } from "./internal";
+export interface NamedEntityInfo extends EntityInfo {
+  entityKind:
+    | "command"
+    | "commandpayload"
+    | "component"
+    | "enumvalue"
+    | "field"
+    | "mapkey"
+    | "mapvalue"
+    | "property"
+    | "relationship"
+    | "telemetry"
+    | "unitattribute"
+    | "commandrequest"
+    | "commandresponse"
+    | "namedlatenttype";
   name?: string;
 }

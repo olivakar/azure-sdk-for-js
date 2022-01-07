@@ -6,13 +6,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-import {EntityInfo} from './internal';
-import {ContentInfo} from './internal';
-import {ComplexSchemaInfo} from './internal';
-export interface InterfaceInfo extends EntityInfo
-{
-  entityKind: 'interface';
-  contents?: {[value: string]: ContentInfo};
+import { EntityInfo } from "./internal";
+import { ContentInfo } from "./internal";
+import { ComplexSchemaInfo } from "./internal";
+export interface InterfaceInfo extends EntityInfo {
+  entityKind: "interface";
+  contents?: { [value: string]: ContentInfo };
   extends?: InterfaceInfo[];
   schemas?: ComplexSchemaInfo[];
 }

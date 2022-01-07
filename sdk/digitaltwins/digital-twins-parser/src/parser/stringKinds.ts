@@ -6,4 +6,4 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-export type StringKinds = 'string'
+export type StringKinds = "string";

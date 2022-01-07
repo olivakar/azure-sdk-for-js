@@ -2,8 +2,8 @@
 // Licensed under the MIT license.
 
 export interface ValueConstraint {
-  requiredTypes?: string[],
-  requiredTypesString?: string,
-  requiredValues?: string[],
-  requiredValuesString?: string,
+  requiredTypes?: string[];
+  requiredTypesString?: string;
+  requiredValues?: string[];
+  requiredValuesString?: string;
 }

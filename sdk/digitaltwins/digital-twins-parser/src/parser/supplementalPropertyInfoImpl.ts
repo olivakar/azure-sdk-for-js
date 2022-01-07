@@ -6,14 +6,23 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-import {SupplementalPropertyInfo} from './internal';
-import {ValueConstraint} from './internal';
-import {AggregateContext} from './internal';
+import { SupplementalPropertyInfo } from "./internal";
+import { ValueConstraint } from "./internal";
+import { AggregateContext } from "./internal";
 /**
  * Class that provides information about a property that can be applied to a DTDL element that has a supplemental type.
-**/
+ **/
 export class SupplementalPropertyInfoImpl implements SupplementalPropertyInfo {
-  constructor(type: string, isPlural: boolean, isOptional: boolean, minCount?: number, maxCount?: number, dictionaryKey?: string, instanceProperty?: string, valueConstraint?: ValueConstraint) {
+  constructor(
+    type: string,
+    isPlural: boolean,
+    isOptional: boolean,
+    minCount?: number,
+    maxCount?: number,
+    dictionaryKey?: string,
+    instanceProperty?: string,
+    valueConstraint?: ValueConstraint
+  ) {
     // codegen-outline-begin constructor
     this.type = type;
     this.minCount = minCount;
@@ -23,8 +32,11 @@ export class SupplementalPropertyInfoImpl implements SupplementalPropertyInfo {
     this.dictionaryKey = dictionaryKey;
     this.instanceProperty = instanceProperty;
 
-    if (type.includes('dtmi:') ) {
-      this.valueConstraint = {requiredTypes: [type], requiredTypesString: AggregateContext.getTermOrUri(type)};
+    if (type.includes("dtmi:")) {
+      this.valueConstraint = {
+        requiredTypes: [type],
+        requiredTypesString: AggregateContext.getTermOrUri(type)
+      };
     }
     // codegen-outline-end
   }
@@ -46,5 +58,5 @@ export class SupplementalPropertyInfoImpl implements SupplementalPropertyInfo {
   instanceProperty?: string;
   // A ValueConstraint that should be applied to the property
   valueConstraint?: ValueConstraint;
-// codegen-outline-end
+  // codegen-outline-end
 }

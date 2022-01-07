@@ -9,12 +9,18 @@ export class JsonSyntaxError extends Error {
 
   constructor(error: Error, enumerationIndex: number, resolvingIdentifiers?: string[]) {
     super(
-      'syntax or grammar error at enumeration index ' + enumerationIndex + ' while processing JSON text ' +
-      (resolvingIdentifiers === undefined ? 'passed to parseAsync()' : 'returned by DtmiResolver') +
-      ': ' + error.message);
+      "syntax or grammar error at enumeration index " +
+        enumerationIndex +
+        " while processing JSON text " +
+        (resolvingIdentifiers === undefined
+          ? "passed to parseAsync()"
+          : "returned by DtmiResolver") +
+        ": " +
+        error.message
+    );
     // https://github.com/Microsoft/TypeScript-wiki/blob/master/Breaking-Changes.md#extending-built-ins-like-error-array-and-map-may-no-longer-work
     Object.setPrototypeOf(this, JsonSyntaxError.prototype);
-    this.name = 'JsonSyntaxError';
+    this.name = "JsonSyntaxError";
     this._innerError = error;
     this._enumerationIndex = enumerationIndex;
     this._resolvingIdentifiers = resolvingIdentifiers;
@@ -28,7 +34,7 @@ export class JsonSyntaxError extends Error {
     return this._enumerationIndex;
   }
 
-  get resolvingIdentifiers() : string[] | undefined {
+  get resolvingIdentifiers(): string[] | undefined {
     return this._resolvingIdentifiers;
   }
 }

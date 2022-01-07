@@ -6,9 +6,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-import {SchemaFieldInfo} from './internal';
-import {SchemaInfo} from './internal';
-export interface FieldInfo extends SchemaFieldInfo
-{
-  entityKind: 'field';
+import { SchemaFieldInfo } from "./internal";
+import { SchemaInfo } from "./internal";
+export interface FieldInfo extends SchemaFieldInfo {
+  entityKind: "field";
 }

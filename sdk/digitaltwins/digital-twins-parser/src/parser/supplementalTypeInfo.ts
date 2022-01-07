@@ -6,16 +6,15 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-import {SupplementalPropertyInfo} from './internal';
+import { SupplementalPropertyInfo } from "./internal";
 /**
  * Interface that provides information about a type is not materialized as a material class.
-**/
-export interface SupplementalTypeInfo
-{
+ **/
+export interface SupplementalTypeInfo {
   contextId: string;
   type: string;
   isAbstract: boolean;
   parentType?: string;
-  properties?: {[x:string]: SupplementalPropertyInfo};
+  properties?: { [x: string]: SupplementalPropertyInfo };
   parentSupplementalType?: SupplementalTypeInfo;
 }

@@ -12,5 +12,5 @@ export enum TraversalStatus {
   InProgress,
 
   // The hierarchy hereunder has been fully traversed.
-  Complete,
+  Complete
 }

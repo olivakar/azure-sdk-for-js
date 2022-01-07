@@ -2,4 +2,4 @@
 // Licensed under the MIT license.
 
 // {'en': 'foobartetra'}
-export type LanguageStringType = {[languageCode: string]: string};
+export type LanguageStringType = { [languageCode: string]: string };

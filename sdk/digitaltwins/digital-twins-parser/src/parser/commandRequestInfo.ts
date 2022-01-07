@@ -6,9 +6,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-import {CommandPayloadInfo} from './internal';
-import {SchemaInfo} from './internal';
-export interface CommandRequestInfo extends CommandPayloadInfo
-{
-  entityKind: 'commandrequest';
+import { CommandPayloadInfo } from "./internal";
+import { SchemaInfo } from "./internal";
+export interface CommandRequestInfo extends CommandPayloadInfo {
+  entityKind: "commandrequest";
 }

@@ -6,8 +6,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-export enum ExtensionKind
-  {
+export enum ExtensionKind {
   NONE,
   SEMANTICTYPE,
   SEMANTICUNIT,
@@ -15,5 +14,5 @@ export enum ExtensionKind
   UNITATTRIBUTE,
   ADJUNCTTYPE,
   LATENTTYPE,
-  NAMEDLATENTTYPE,
+  NAMEDLATENTTYPE
 }

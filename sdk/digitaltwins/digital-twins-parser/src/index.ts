@@ -2,24 +2,24 @@
 // Licensed under the MIT license.
 // NOTE: This file is manipulated by the CI pipeline, so if you make changes be sure you aren't breaking the CI pipeline.
 
-export { 
+export {
   ValueConstraint,
-  TraversalStatus,  
-  ModelParsingOption, 
+  TraversalStatus,
+  ModelParsingOption,
   DtmiResolver,
   ParsingError,
-  LanguageStringType,
-} from './parser';
+  LanguageStringType
+} from "./parser";
 
 export {
   EntityKinds,
   SchemaInfo,
   SupplementalTypeInfo,
   // Model,
-  ModelParser, 
-  ModelDict, 
-  SupplementalTypeCollection, 
-  EntityInfo, 
+  ModelParser,
+  ModelDict,
+  SupplementalTypeCollection,
+  EntityInfo,
   ArrayInfo,
   BooleanInfo,
   ComplexSchemaInfo,
@@ -62,5 +62,5 @@ export {
   LatentTypeInfo,
   NamedLatentTypeInfo,
   createParser,
-  SupplementalPropertyInfo,
-} from './parser';
+  SupplementalPropertyInfo
+} from "./parser";

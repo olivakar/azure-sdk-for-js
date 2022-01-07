@@ -6,11 +6,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-import {ContentInfo} from './internal';
-import {SchemaInfo} from './internal';
-export interface PropertyInfo extends ContentInfo
-{
-  entityKind: 'property';
+import { ContentInfo } from "./internal";
+import { SchemaInfo } from "./internal";
+export interface PropertyInfo extends ContentInfo {
+  entityKind: "property";
   schema?: SchemaInfo;
   writable?: boolean;
 }

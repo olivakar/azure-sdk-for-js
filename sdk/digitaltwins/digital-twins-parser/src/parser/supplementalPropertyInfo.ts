@@ -6,12 +6,11 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-import {ValueConstraint} from './internal';
+import { ValueConstraint } from "./internal";
 /**
  * Interface that provides information about a property that can be applied to a DTDL element that has a supplemental type.
-**/
-export interface SupplementalPropertyInfo
-{
+ **/
+export interface SupplementalPropertyInfo {
   type: string;
   isPlural: boolean;
   isOptional: boolean;

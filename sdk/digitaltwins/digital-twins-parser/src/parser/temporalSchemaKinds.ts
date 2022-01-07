@@ -6,4 +6,4 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-export type TemporalSchemaKinds = 'date'|'datetime'|'duration'|'time'
+export type TemporalSchemaKinds = "date" | "datetime" | "duration" | "time";

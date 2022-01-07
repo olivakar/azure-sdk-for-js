@@ -6,4 +6,4 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-export type CommandPayloadKinds = 'commandpayload'|'commandrequest'|'commandresponse'
+export type CommandPayloadKinds = "commandpayload" | "commandrequest" | "commandresponse";

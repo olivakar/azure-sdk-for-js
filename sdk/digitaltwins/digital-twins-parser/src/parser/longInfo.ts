@@ -6,8 +6,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-import {NumericSchemaInfo} from './internal';
-export interface LongInfo extends NumericSchemaInfo
-{
-  entityKind: 'long';
+import { NumericSchemaInfo } from "./internal";
+export interface LongInfo extends NumericSchemaInfo {
+  entityKind: "long";
 }

@@ -6,4 +6,18 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-export type NamedEntityKinds = 'command'|'commandpayload'|'component'|'enumvalue'|'field'|'mapkey'|'mapvalue'|'property'|'relationship'|'telemetry'|'unitattribute'|'commandrequest'|'commandresponse'|'namedlatenttype'
+export type NamedEntityKinds =
+  | "command"
+  | "commandpayload"
+  | "component"
+  | "enumvalue"
+  | "field"
+  | "mapkey"
+  | "mapvalue"
+  | "property"
+  | "relationship"
+  | "telemetry"
+  | "unitattribute"
+  | "commandrequest"
+  | "commandresponse"
+  | "namedlatenttype";

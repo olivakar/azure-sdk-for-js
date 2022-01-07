@@ -6,10 +6,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-import {ContentInfo} from './internal';
-import {SchemaInfo} from './internal';
-export interface TelemetryInfo extends ContentInfo
-{
-  entityKind: 'telemetry';
+import { ContentInfo } from "./internal";
+import { SchemaInfo } from "./internal";
+export interface TelemetryInfo extends ContentInfo {
+  entityKind: "telemetry";
   schema?: SchemaInfo;
 }

@@ -36,9 +36,20 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      {
+        pattern: "test/cases/*.json",
+        watched: false,
+        included: false,
+        served: true,
+        nocache: false
+      },
       "dist-test/index.browser.js",
       { pattern: "dist-test/index.browser.js.map", type: "html", included: false, served: true }
     ].concat(isPlaybackMode() || isSoftRecordMode() ? ["recordings/browsers/**/*.json"] : []),
+
+    proxies: {
+      "/cases/": "http://localhost:9876/base/test/cases/"
+    },
 
     // list of files / patterns to exclude
     exclude: [],
@@ -47,7 +58,8 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       "**/*.js": ["env"],
-      "recordings/browsers/**/*.json": ["json"]
+      "recordings/browsers/**/*.json": ["json"],
+      "test/cases/*.json": ["json"]
       // IMPORTANT: COMMENT following line if you want to debug in your browsers!!
       // Preprocess source file to calculate code coverage, however this will make source file unreadable
       //"dist-test/index.browser.js": ["coverage"]

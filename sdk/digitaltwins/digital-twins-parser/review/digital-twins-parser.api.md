@@ -9,13 +9,13 @@ export interface ArrayInfo extends ComplexSchemaInfo {
     // (undocumented)
     elementSchema?: SchemaInfo;
     // (undocumented)
-    entityKind: 'array';
+    entityKind: "array";
 }
 
 // @public (undocumented)
 export interface BooleanInfo extends PrimitiveSchemaInfo {
     // (undocumented)
-    entityKind: 'boolean';
+    entityKind: "boolean";
 }
 
 // @public (undocumented)
@@ -23,7 +23,7 @@ export interface CommandInfo extends ContentInfo {
     // (undocumented)
     commandType?: CommandTypeInfo;
     // (undocumented)
-    entityKind: 'command';
+    entityKind: "command";
     // (undocumented)
     request?: CommandPayloadInfo;
     // (undocumented)
@@ -33,37 +33,37 @@ export interface CommandInfo extends ContentInfo {
 // @public (undocumented)
 export interface CommandPayloadInfo extends SchemaFieldInfo {
     // (undocumented)
-    entityKind: 'commandpayload' | 'commandrequest' | 'commandresponse';
+    entityKind: "commandpayload" | "commandrequest" | "commandresponse";
 }
 
 // @public (undocumented)
 export interface CommandRequestInfo extends CommandPayloadInfo {
     // (undocumented)
-    entityKind: 'commandrequest';
+    entityKind: "commandrequest";
 }
 
 // @public (undocumented)
 export interface CommandResponseInfo extends CommandPayloadInfo {
     // (undocumented)
-    entityKind: 'commandresponse';
+    entityKind: "commandresponse";
 }
 
 // @public (undocumented)
 export interface CommandTypeInfo extends EntityInfo {
     // (undocumented)
-    entityKind: 'commandtype';
+    entityKind: "commandtype";
 }
 
 // @public (undocumented)
 export interface ComplexSchemaInfo extends SchemaInfo {
     // (undocumented)
-    entityKind: 'array' | 'enum' | 'map' | 'object';
+    entityKind: "array" | "enum" | "map" | "object";
 }
 
 // @public (undocumented)
 export interface ComponentInfo extends ContentInfo {
     // (undocumented)
-    entityKind: 'component';
+    entityKind: "component";
     // (undocumented)
     schema?: InterfaceInfo;
 }
@@ -71,7 +71,7 @@ export interface ComponentInfo extends ContentInfo {
 // @public (undocumented)
 export interface ContentInfo extends NamedEntityInfo {
     // (undocumented)
-    entityKind: 'command' | 'component' | 'property' | 'relationship' | 'telemetry';
+    entityKind: "command" | "component" | "property" | "relationship" | "telemetry";
 }
 
 // @public
@@ -80,19 +80,19 @@ export function createParser(parsingOptions: ModelParsingOption): ModelParser;
 // @public (undocumented)
 export interface DateInfo extends TemporalSchemaInfo {
     // (undocumented)
-    entityKind: 'date';
+    entityKind: "date";
 }
 
 // @public (undocumented)
 export interface DateTimeInfo extends TemporalSchemaInfo {
     // (undocumented)
-    entityKind: 'datetime';
+    entityKind: "datetime";
 }
 
 // @public (undocumented)
 export interface DoubleInfo extends NumericSchemaInfo {
     // (undocumented)
-    entityKind: 'double';
+    entityKind: "double";
 }
 
 // @public (undocumented)
@@ -101,7 +101,7 @@ export type DtmiResolver = (identifiers: string[]) => Promise<string[] | null>;
 // @public (undocumented)
 export interface DurationInfo extends TemporalSchemaInfo {
     // (undocumented)
-    entityKind: 'duration';
+    entityKind: "duration";
 }
 
 // @public (undocumented)
@@ -119,7 +119,7 @@ export interface EntityInfo {
     // (undocumented)
     dtdlVersion: number;
     // (undocumented)
-    entityKind: 'array' | 'boolean' | 'command' | 'commandpayload' | 'commandtype' | 'component' | 'date' | 'datetime' | 'double' | 'duration' | 'enum' | 'enumvalue' | 'field' | 'float' | 'integer' | 'interface' | 'long' | 'map' | 'mapkey' | 'mapvalue' | 'object' | 'property' | 'relationship' | 'string' | 'telemetry' | 'time' | 'unit' | 'unitattribute' | 'commandrequest' | 'commandresponse' | 'latenttype' | 'namedlatenttype' | 'reference';
+    entityKind: "array" | "boolean" | "command" | "commandpayload" | "commandtype" | "component" | "date" | "datetime" | "double" | "duration" | "enum" | "enumvalue" | "field" | "float" | "integer" | "interface" | "long" | "map" | "mapkey" | "mapvalue" | "object" | "property" | "relationship" | "string" | "telemetry" | "time" | "unit" | "unitattribute" | "commandrequest" | "commandresponse" | "latenttype" | "namedlatenttype" | "reference";
     // (undocumented)
     id: string;
     // (undocumented)
@@ -143,12 +143,12 @@ export interface EntityInfo {
 }
 
 // @public (undocumented)
-export type EntityKinds = 'array' | 'boolean' | 'command' | 'commandpayload' | 'commandtype' | 'component' | 'date' | 'datetime' | 'double' | 'duration' | 'enum' | 'enumvalue' | 'field' | 'float' | 'integer' | 'interface' | 'long' | 'map' | 'mapkey' | 'mapvalue' | 'object' | 'property' | 'relationship' | 'string' | 'telemetry' | 'time' | 'unit' | 'unitattribute' | 'commandrequest' | 'commandresponse' | 'latenttype' | 'namedlatenttype' | 'reference';
+export type EntityKinds = "array" | "boolean" | "command" | "commandpayload" | "commandtype" | "component" | "date" | "datetime" | "double" | "duration" | "enum" | "enumvalue" | "field" | "float" | "integer" | "interface" | "long" | "map" | "mapkey" | "mapvalue" | "object" | "property" | "relationship" | "string" | "telemetry" | "time" | "unit" | "unitattribute" | "commandrequest" | "commandresponse" | "latenttype" | "namedlatenttype" | "reference";
 
 // @public (undocumented)
 export interface EnumInfo extends ComplexSchemaInfo {
     // (undocumented)
-    entityKind: 'enum';
+    entityKind: "enum";
     // (undocumented)
     enumValues?: EnumValueInfo[];
     // (undocumented)
@@ -158,7 +158,7 @@ export interface EnumInfo extends ComplexSchemaInfo {
 // @public (undocumented)
 export interface EnumValueInfo extends NamedEntityInfo {
     // (undocumented)
-    entityKind: 'enumvalue';
+    entityKind: "enumvalue";
     // (undocumented)
     enumValue?: any;
 }
@@ -186,19 +186,19 @@ export enum ExtensionKind {
 // @public (undocumented)
 export interface FieldInfo extends SchemaFieldInfo {
     // (undocumented)
-    entityKind: 'field';
+    entityKind: "field";
 }
 
 // @public (undocumented)
 export interface FloatInfo extends NumericSchemaInfo {
     // (undocumented)
-    entityKind: 'float';
+    entityKind: "float";
 }
 
 // @public (undocumented)
 export interface IntegerInfo extends NumericSchemaInfo {
     // (undocumented)
-    entityKind: 'integer';
+    entityKind: "integer";
 }
 
 // @public (undocumented)
@@ -208,7 +208,7 @@ export interface InterfaceInfo extends EntityInfo {
         [value: string]: ContentInfo;
     };
     // (undocumented)
-    entityKind: 'interface';
+    entityKind: "interface";
     // (undocumented)
     extends?: InterfaceInfo[];
     // (undocumented)
@@ -223,19 +223,19 @@ export type LanguageStringType = {
 // @public (undocumented)
 export interface LatentTypeInfo extends EntityInfo {
     // (undocumented)
-    entityKind: 'latenttype';
+    entityKind: "latenttype";
 }
 
 // @public (undocumented)
 export interface LongInfo extends NumericSchemaInfo {
     // (undocumented)
-    entityKind: 'long';
+    entityKind: "long";
 }
 
 // @public (undocumented)
 export interface MapInfo extends ComplexSchemaInfo {
     // (undocumented)
-    entityKind: 'map';
+    entityKind: "map";
     // (undocumented)
     mapKey?: MapKeyInfo;
     // (undocumented)
@@ -245,7 +245,7 @@ export interface MapInfo extends ComplexSchemaInfo {
 // @public (undocumented)
 export interface MapKeyInfo extends NamedEntityInfo {
     // (undocumented)
-    entityKind: 'mapkey';
+    entityKind: "mapkey";
     // (undocumented)
     schema?: StringInfo;
 }
@@ -253,7 +253,7 @@ export interface MapKeyInfo extends NamedEntityInfo {
 // @public (undocumented)
 export interface MapValueInfo extends SchemaFieldInfo {
     // (undocumented)
-    entityKind: 'mapvalue';
+    entityKind: "mapvalue";
 }
 
 // @public
@@ -306,7 +306,7 @@ export enum ModelParsingOption {
 // @public (undocumented)
 export interface NamedEntityInfo extends EntityInfo {
     // (undocumented)
-    entityKind: 'command' | 'commandpayload' | 'component' | 'enumvalue' | 'field' | 'mapkey' | 'mapvalue' | 'property' | 'relationship' | 'telemetry' | 'unitattribute' | 'commandrequest' | 'commandresponse' | 'namedlatenttype';
+    entityKind: "command" | "commandpayload" | "component" | "enumvalue" | "field" | "mapkey" | "mapvalue" | "property" | "relationship" | "telemetry" | "unitattribute" | "commandrequest" | "commandresponse" | "namedlatenttype";
     // (undocumented)
     name?: string;
 }
@@ -314,19 +314,19 @@ export interface NamedEntityInfo extends EntityInfo {
 // @public (undocumented)
 export interface NamedLatentTypeInfo extends NamedEntityInfo {
     // (undocumented)
-    entityKind: 'namedlatenttype';
+    entityKind: "namedlatenttype";
 }
 
 // @public (undocumented)
 export interface NumericSchemaInfo extends PrimitiveSchemaInfo {
     // (undocumented)
-    entityKind: 'double' | 'float' | 'integer' | 'long';
+    entityKind: "double" | "float" | "integer" | "long";
 }
 
 // @public (undocumented)
 export interface ObjectInfo extends ComplexSchemaInfo {
     // (undocumented)
-    entityKind: 'object';
+    entityKind: "object";
     // (undocumented)
     fields?: FieldInfo[];
 }
@@ -352,13 +352,13 @@ export interface ParsingError {
 // @public (undocumented)
 export interface PrimitiveSchemaInfo extends SchemaInfo {
     // (undocumented)
-    entityKind: 'boolean' | 'date' | 'datetime' | 'double' | 'duration' | 'float' | 'integer' | 'long' | 'string' | 'time';
+    entityKind: "boolean" | "date" | "datetime" | "double" | "duration" | "float" | "integer" | "long" | "string" | "time";
 }
 
 // @public (undocumented)
 export interface PropertyInfo extends ContentInfo {
     // (undocumented)
-    entityKind: 'property';
+    entityKind: "property";
     // (undocumented)
     schema?: SchemaInfo;
     // (undocumented)
@@ -368,7 +368,7 @@ export interface PropertyInfo extends ContentInfo {
 // @public (undocumented)
 export interface RelationshipInfo extends ContentInfo {
     // (undocumented)
-    entityKind: 'relationship';
+    entityKind: "relationship";
     // (undocumented)
     maxMultiplicity?: number | undefined;
     // (undocumented)
@@ -384,7 +384,7 @@ export interface RelationshipInfo extends ContentInfo {
 // @public (undocumented)
 export interface SchemaFieldInfo extends NamedEntityInfo {
     // (undocumented)
-    entityKind: 'commandpayload' | 'field' | 'mapvalue' | 'commandrequest' | 'commandresponse';
+    entityKind: "commandpayload" | "field" | "mapvalue" | "commandrequest" | "commandresponse";
     // (undocumented)
     schema?: SchemaInfo;
 }
@@ -392,13 +392,13 @@ export interface SchemaFieldInfo extends NamedEntityInfo {
 // @public (undocumented)
 export interface SchemaInfo extends EntityInfo {
     // (undocumented)
-    entityKind: 'array' | 'boolean' | 'date' | 'datetime' | 'double' | 'duration' | 'enum' | 'float' | 'integer' | 'long' | 'map' | 'object' | 'string' | 'time';
+    entityKind: "array" | "boolean" | "date" | "datetime" | "double" | "duration" | "enum" | "float" | "integer" | "long" | "map" | "object" | "string" | "time";
 }
 
 // @public (undocumented)
 export interface StringInfo extends PrimitiveSchemaInfo {
     // (undocumented)
-    entityKind: 'string';
+    entityKind: "string";
 }
 
 // @public
@@ -448,7 +448,7 @@ export interface SupplementalTypeInfo {
 // @public (undocumented)
 export interface TelemetryInfo extends ContentInfo {
     // (undocumented)
-    entityKind: 'telemetry';
+    entityKind: "telemetry";
     // (undocumented)
     schema?: SchemaInfo;
 }
@@ -456,13 +456,13 @@ export interface TelemetryInfo extends ContentInfo {
 // @public (undocumented)
 export interface TemporalSchemaInfo extends PrimitiveSchemaInfo {
     // (undocumented)
-    entityKind: 'date' | 'datetime' | 'duration' | 'time';
+    entityKind: "date" | "datetime" | "duration" | "time";
 }
 
 // @public (undocumented)
 export interface TimeInfo extends TemporalSchemaInfo {
     // (undocumented)
-    entityKind: 'time';
+    entityKind: "time";
 }
 
 // @public (undocumented)
@@ -478,13 +478,13 @@ export enum TraversalStatus {
 // @public (undocumented)
 export interface UnitAttributeInfo extends NamedEntityInfo {
     // (undocumented)
-    entityKind: 'unitattribute';
+    entityKind: "unitattribute";
 }
 
 // @public (undocumented)
 export interface UnitInfo extends EntityInfo {
     // (undocumented)
-    entityKind: 'unit';
+    entityKind: "unit";
     // (undocumented)
     symbol?: string;
 }

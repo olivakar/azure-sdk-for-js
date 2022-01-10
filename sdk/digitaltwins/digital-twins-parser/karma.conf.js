@@ -36,16 +36,10 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      {
-        pattern: "test/cases/*.json",
-        watched: false,
-        included: false,
-        served: true,
-        nocache: false
-      },
+      "test/cases/*.json",
       "dist-test/index.browser.js",
       { pattern: "dist-test/index.browser.js.map", type: "html", included: false, served: true }
-    ].concat(isPlaybackMode() || isSoftRecordMode() ? ["recordings/browsers/**/*.json"] : []),
+    ],
 
     proxies: {
       "/cases/": "http://localhost:9876/base/test/cases/"
@@ -58,7 +52,6 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       "**/*.js": ["env"],
-      "recordings/browsers/**/*.json": ["json"],
       "test/cases/*.json": ["json"]
       // IMPORTANT: COMMENT following line if you want to debug in your browsers!!
       // Preprocess source file to calculate code coverage, however this will make source file unreadable
@@ -108,7 +101,7 @@ module.exports = function(config) {
 
     // --no-sandbox allows our tests to run in Linux without having to change the system.
     // --disable-web-security allows us to authenticate from the browser without having to write tests using interactive auth, which would be far more complex.
-    browsers: ["ChromeHeadlessNoSandbox"],
+    browsers: ["Chrome"],
     customLaunchers: {
       ChromeHeadlessNoSandbox: {
         base: "ChromeHeadless",
@@ -118,7 +111,7 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true,
+    singleRun: false,
 
     // Concurrency level
     // how many browser should be started simultaneous

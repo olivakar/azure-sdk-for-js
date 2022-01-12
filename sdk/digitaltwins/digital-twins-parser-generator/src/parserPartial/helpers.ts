@@ -2,11 +2,14 @@
 // Licensed under the MIT license.
 /* eslint-disable valid-jsdoc */
 
-import {LanguageStringType} from '../parser/type/langstringType';
+import { LanguageStringType } from "../parser/type/langstringType";
 
 export class Helpers {
   // codegen-outline-begin methods
-  static areDictionariesLiteralEqual(dict1: LanguageStringType, dict2: LanguageStringType): boolean {
+  static areDictionariesLiteralEqual(
+    dict1: LanguageStringType,
+    dict2: LanguageStringType
+  ): boolean {
     if (Object.keys(dict1).length !== Object.keys(dict2).length) {
       return false;
     }
@@ -19,11 +22,11 @@ export class Helpers {
   }
 
   static getDataTypeString(datatype: any): string {
-    throw new Error('getDataTypeString is unnecessary in Typescript.');
+    throw new Error("getDataTypeString is unnecessary in Typescript.");
   }
 
   static getJsonTextFromToken(token: any): string {
-    throw new Error('getJsonTextFromToken is unnecessary in Typescript.');
+    throw new Error("getJsonTextFromToken is unnecessary in Typescript.");
   }
   // codegen-outline-end
 }

@@ -15,7 +15,7 @@ export class testClass {
   }
 
   forMethod(input: any) {
-    for (let i=input; i < this._foo; i++) {
+    for (let i = input; i < this._foo; i++) {
       console.log(`outputting the value ${i}`);
     }
 

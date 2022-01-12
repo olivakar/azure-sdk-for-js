@@ -2,8 +2,8 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {ParserGeneratorValues} from './parserGeneratorValues';
-import {TsScope} from '../codeGenerator';
+import { ParserGeneratorValues } from "./parserGeneratorValues";
+import { TsScope } from "../codeGenerator";
 
 export class SupplementalType {
   protected typeUri: string | undefined;
@@ -19,7 +19,9 @@ export class SupplementalType {
    * @param scope - A TsScope object to which to add generated code.
    */
   defineIdVariable(scope: TsScope) {
-    scope.line(`const ${this.typeVariableName}: ${ParserGeneratorValues.IdentifierType} = new ${ParserGeneratorValues.IdentifierType}("${this.typeUri}");`);
+    scope.line(
+      `const ${this.typeVariableName}: ${ParserGeneratorValues.IdentifierType} = new ${ParserGeneratorValues.IdentifierType}("${this.typeUri}");`
+    );
   }
 
   /**
@@ -27,11 +29,9 @@ export class SupplementalType {
    * @param scope - A TsScope object to which to add generated code.
    * @param contextIdVariables - A Dictionary mapping context IDs to variables that hold the context ID values.
    */
-  defineInfoVariable(scope: TsScope, contextIdVariables: {[x:string]: string}) {
-  }
+  defineInfoVariable(scope: TsScope, contextIdVariables: { [x: string]: string }) {}
 
-  assignInfoVariable(scope: TsScope, dictionaryVariableName: string) {
-  }
+  assignInfoVariable(scope: TsScope, dictionaryVariableName: string) {}
 
   /**
    * Get a variable name for the supplemental type identifier value.
@@ -39,7 +39,9 @@ export class SupplementalType {
    * @returns - A string representation of the variable name.
    */
   getTypeVariableName(typeUri: string | undefined): string | undefined {
-    return typeUri ? `${this.getVariableRoot(typeUri)}TypeId${this.getVariableSuffix(typeUri)}` : undefined;
+    return typeUri
+      ? `${this.getVariableRoot(typeUri)}TypeId${this.getVariableSuffix(typeUri)}`
+      : undefined;
   }
 
   /**
@@ -48,24 +50,26 @@ export class SupplementalType {
    * @returns - A string representation of the variable name.
    */
   getInfoVariableName(typeUri: string | undefined): string | undefined {
-    return typeUri ? `${this.getVariableRoot(typeUri)}Info${this.getVariableSuffix(typeUri)}` : undefined;
+    return typeUri
+      ? `${this.getVariableRoot(typeUri)}Info${this.getVariableSuffix(typeUri)}`
+      : undefined;
   }
 
   getVariableRoot(typeUri: string): string {
-    const lastLabelStart = typeUri.lastIndexOf(':') + 1;
-    const versionStart = typeUri.indexOf(';');
-    const lastLabelLength = (versionStart > 0 ? versionStart: typeUri.length) - lastLabelStart;
+    const lastLabelStart = typeUri.lastIndexOf(":") + 1;
+    const versionStart = typeUri.indexOf(";");
+    const lastLabelLength = (versionStart > 0 ? versionStart : typeUri.length) - lastLabelStart;
     const lastLabel = typeUri.substr(lastLabelStart, lastLabelLength);
     return lastLabel[0].toLowerCase() + lastLabel.substr(1);
   }
 
   getVariableSuffix(typeUri: string): string {
-    const versionSuffixStart = typeUri.indexOf(';') + 1;
+    const versionSuffixStart = typeUri.indexOf(";") + 1;
     if (versionSuffixStart > 0) {
-      return `V${typeUri.substr(versionSuffixStart).replace('.', '_')}`;
+      return `V${typeUri.substr(versionSuffixStart).replace(".", "_")}`;
     } else {
-      const penultimateLabelEnd = typeUri.lastIndexOf(':');
-      const penultimateLabelStart = typeUri.lastIndexOf(':', penultimateLabelEnd - 1) + 1;
+      const penultimateLabelEnd = typeUri.lastIndexOf(":");
+      const penultimateLabelStart = typeUri.lastIndexOf(":", penultimateLabelEnd - 1) + 1;
       return typeUri.substr(penultimateLabelStart, penultimateLabelEnd - penultimateLabelStart);
     }
   }

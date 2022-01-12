@@ -1,17 +1,14 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {
-  CodeWriter,
-  TsEnumParams,
-} from './internal';
+import { CodeWriter, TsEnumParams } from "./internal";
 
 export class TsEnum {
   private _name: string;
   private _exports?: boolean;
-  private _members: {name: string; value?: string}[];
+  private _members: { name: string; value?: string }[];
 
-  constructor({name, exports}: TsEnumParams) {
+  constructor({ name, exports }: TsEnumParams) {
     this._name = name;
     this._exports = exports;
 
@@ -22,20 +19,19 @@ export class TsEnum {
     return this._name;
   }
 
-  enum(input: {name: string; value?: string}): TsEnum {
-    const tsEnumMember = {name: input.name, value: input.value};
+  enum(input: { name: string; value?: string }): TsEnum {
+    const tsEnumMember = { name: input.name, value: input.value };
     this._members.push(tsEnumMember);
     return this;
   }
 
-
   private get _decoratedName(): string {
     const text: string[] = [];
     if (this._exports) {
-      text.push('export');
+      text.push("export");
     }
     text.push(`enum ${this._name}`);
-    return text.join(' ');
+    return text.join(" ");
   }
 
   generateCode(codeWriter: CodeWriter) {

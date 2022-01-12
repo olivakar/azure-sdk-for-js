@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {TsAccess, TsFunctionType} from '../internal';
+import { TsAccess, TsFunctionType } from "../internal";
 
 export interface TsFunctionParams {
   name: string;

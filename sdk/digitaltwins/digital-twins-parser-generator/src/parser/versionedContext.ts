@@ -1,10 +1,10 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {InDTMI} from './internal';
+import { InDTMI } from "./internal";
 
-type TermDict = {[term: string]: InDTMI};
-type ReverseTermDict = {[dtmiValue: string]: string};
+type TermDict = { [term: string]: InDTMI };
+type ReverseTermDict = { [dtmiValue: string]: string };
 
 export class VersionedContext {
   private _termDict: TermDict;

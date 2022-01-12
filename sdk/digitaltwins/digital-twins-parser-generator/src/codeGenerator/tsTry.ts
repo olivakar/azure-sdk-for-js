@@ -1,11 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {
-  TsCatch,
-  TsFinally,
-  TsScope,
-} from './internal';
+import { TsCatch, TsFinally, TsScope } from "./internal";
 
 export class TsTry extends TsScope {
   private _nestingScope: TsScope;

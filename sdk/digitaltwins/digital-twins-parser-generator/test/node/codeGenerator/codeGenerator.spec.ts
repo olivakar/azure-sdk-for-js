@@ -2,21 +2,16 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import * as helper from './helperToProcessExpectedFiles';
-import {expect} from 'chai';
-import fs from 'fs';
-import sinon from 'sinon';
-import {tsClassCase} from './cases/generateTsClass';
-import {tsForCase} from './cases/generateTsFor';
-import {tsTryCatchFinallyCase} from './cases/generateTsTryCatchFinally';
-import {tsWhileCase} from './cases/generateTsWhile';
+import * as helper from "./helperToProcessExpectedFiles";
+import { expect } from "chai";
+import fs from "fs";
+import sinon from "sinon";
+import { tsClassCase } from "./cases/generateTsClass";
+import { tsForCase } from "./cases/generateTsFor";
+import { tsTryCatchFinallyCase } from "./cases/generateTsTryCatchFinally";
+import { tsWhileCase } from "./cases/generateTsWhile";
 
-const codeGeneratorTestCaseUnits = [
-  tsClassCase,
-  tsForCase,
-  tsTryCatchFinallyCase,
-  tsWhileCase,
-];
+const codeGeneratorTestCaseUnits = [tsClassCase, tsForCase, tsTryCatchFinallyCase, tsWhileCase];
 
 /**
  * Code Generator Tests
@@ -41,26 +36,26 @@ const codeGeneratorTestCaseUnits = [
  * will only run once, since only one test scenario has been implemented. But in the case of TsClass for
  * instance, there are multiple scenarios we want to test on TsClass, so we have multiple tests performed.
  */
-describe('Code Generator', function() {
+describe("Code Generator", function() {
   afterEach(function() {
     sinon.restore();
   });
   codeGeneratorTestCaseUnits.forEach((testCase) => {
     describe(`${testCase.unitUnderTest}`, function() {
       testCase.testCases.forEach((generationScenario) => {
-        const generatedScenario = generationScenario('./');
+        const generatedScenario = generationScenario("./");
         it(`writes a ${generatedScenario.name}`, function() {
           const fakeFile: string[] = [];
           const fakeWrite = function(input: string) {
             fakeFile.push(input);
           };
           const fakeEnd = sinon.stub();
-          const fakeStreamWriter = {write: fakeWrite, end: fakeEnd};
-          sinon.stub(fs, 'createWriteStream').callsFake((): any => {
+          const fakeStreamWriter = { write: fakeWrite, end: fakeEnd };
+          sinon.stub(fs, "createWriteStream").callsFake((): any => {
             return fakeStreamWriter;
           });
           generatedScenario.codeGenerator.generateFiles();
-          const actual = fakeFile.join('').split(/\r\n/);
+          const actual = fakeFile.join("").split(/\r\n/);
           const expected = helper.processExpectedOutputFile(generatedScenario.fileName);
           expect(actual).to.deep.equal(expected);
         });
@@ -68,4 +63,3 @@ describe('Code Generator', function() {
     });
   });
 });
-

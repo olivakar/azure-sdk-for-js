@@ -1,7 +1,8 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {CodeWriter,
+import {
+  CodeWriter,
   TsAccess,
   TsFunctionParams,
   TsFunctionType,
@@ -10,8 +11,8 @@ import {CodeWriter,
   TsParameter,
   TsParameterParams,
   TsScope,
-  TsStatement,
-} from './internal';
+  TsStatement
+} from "./internal";
 
 // Functions are the fundamental building block of any application in JavaScript.
 // They’re how you build up layers of abstraction, mimicking classes, information hiding, and modules.
@@ -32,7 +33,15 @@ export class TsFunction implements TsStatement {
   private _summaryLines?: TsMultiLineDocString;
   private _importStatements?: TsImport;
 
-  constructor({name, returnType, functionType, abstract, access, exports, isStatic}: TsFunctionParams) {
+  constructor({
+    name,
+    returnType,
+    functionType,
+    abstract,
+    access,
+    exports,
+    isStatic
+  }: TsFunctionParams) {
     this._name = name;
     this._returnType = returnType;
     this._functionType = functionType;
@@ -109,8 +118,8 @@ export class TsFunction implements TsStatement {
     return this;
   }
 
-  parameter({name, type, description, initializer, optional}: TsParameterParams): TsFunction {
-    const tsParameter = new TsParameter({name, type, initializer, description, optional});
+  parameter({ name, type, description, initializer, optional }: TsParameterParams): TsFunction {
+    const tsParameter = new TsParameter({ name, type, initializer, description, optional });
     this._parameters.push(tsParameter);
     return this;
   }
@@ -118,45 +127,45 @@ export class TsFunction implements TsStatement {
   private get _decoratedName(): string {
     const text: string[] = [];
     if (this._exports) {
-      text.push('export');
+      text.push("export");
     }
     if (this._access !== undefined) {
       text.push(this._access);
     }
     if (this._static !== undefined && this._static === true) {
-      text.push('static');
+      text.push("static");
     }
     if (this._isAbstract) {
-      text.push('abstract');
+      text.push("abstract");
     }
     if (this._functionType !== undefined) {
       switch (this._functionType) {
-      case (TsFunctionType.Function):
-        text.push('function');
-        break;
-      case (TsFunctionType.Method):
-        break;
-      case (TsFunctionType.Getter):
-        text.push('get');
-        break;
-      case (TsFunctionType.Setter):
-        text.push('set');
-        break;
+        case TsFunctionType.Function:
+          text.push("function");
+          break;
+        case TsFunctionType.Method:
+          break;
+        case TsFunctionType.Getter:
+          text.push("get");
+          break;
+        case TsFunctionType.Setter:
+          text.push("set");
+          break;
       }
     } else {
       text.push(TsFunctionType.Function);
     }
 
     text.push(this._name);
-    return text.join(' ');
+    return text.join(" ");
   }
 
   generateCode(codeWriter: CodeWriter) {
     if (this._importStatements !== undefined) {
       this._importStatements.generateCode(codeWriter);
     }
-    const betweenTheParentheses = this._parameters.map((x) => x.toString()).join(', ');
-    const postfix: string = this._returnType ? `: ${this._returnType}` : '';
+    const betweenTheParentheses = this._parameters.map((x) => x.toString()).join(", ");
+    const postfix: string = this._returnType ? `: ${this._returnType}` : "";
     const declarationLine = `${this._decoratedName}(${betweenTheParentheses})${postfix} `;
     if (this._summaryLines) {
       this._summaryLines.generateCode(codeWriter);

@@ -3,8 +3,8 @@
 // Licensed under the MIT license.
 
 export enum TsFunctionType {
-  Function = 'function',
-  Method = 'method',
-  Getter = 'get',
-  Setter = 'set',
+  Function = "function",
+  Method = "method",
+  Getter = "get",
+  Setter = "set"
 }

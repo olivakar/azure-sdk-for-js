@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {CodeWriter} from './internal';
+import { CodeWriter } from "./internal";
 
 export class TsImport {
   private _tsImports: Set<string>;

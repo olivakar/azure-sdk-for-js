@@ -1,8 +1,8 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {NameFormatter} from './nameFormatter';
-import {TsScope} from '../codeGenerator';
+import { NameFormatter } from "./nameFormatter";
+import { TsScope } from "../codeGenerator";
 
 export class SupplementalCotype {
   private _kindValue: string;

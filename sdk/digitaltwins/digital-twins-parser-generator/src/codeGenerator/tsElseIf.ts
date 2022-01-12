@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {TsElse, TsScope} from './internal';
+import { TsElse, TsScope } from "./internal";
 
 export class TsElseIf extends TsScope {
   private _nestingScope: TsScope;

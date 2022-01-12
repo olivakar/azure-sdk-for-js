@@ -1,8 +1,8 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {SupplementalPropertyDigest} from './metamodelDigest';
-import {TsScope} from '../codeGenerator';
+import { SupplementalPropertyDigest } from "./metamodelDigest";
+import { TsScope } from "../codeGenerator";
 
 export class SupplementalProperty {
   private _propertyName: string;
@@ -16,17 +16,31 @@ export class SupplementalProperty {
 
   constructor(propertyName: string, supplementalPropertyDigest: SupplementalPropertyDigest) {
     this._propertyName = propertyName;
-    this._typeUri = supplementalPropertyDigest.type || 'undefined';
-    this._maxCount = supplementalPropertyDigest.maxCount !== undefined ? supplementalPropertyDigest.maxCount.toString() : 'undefined';
-    this._minCount = supplementalPropertyDigest.minCount !== undefined ? supplementalPropertyDigest.minCount.toString() : 'undefined';
+    this._typeUri = supplementalPropertyDigest.type || "undefined";
+    this._maxCount =
+      supplementalPropertyDigest.maxCount !== undefined
+        ? supplementalPropertyDigest.maxCount.toString()
+        : "undefined";
+    this._minCount =
+      supplementalPropertyDigest.minCount !== undefined
+        ? supplementalPropertyDigest.minCount.toString()
+        : "undefined";
     this._isPlural = `${supplementalPropertyDigest.plural}`;
     this._isOptional = `${supplementalPropertyDigest.optional}`;
-    this._dictionaryKey = `${(supplementalPropertyDigest.dictionaryKey !== undefined ? `"${supplementalPropertyDigest.dictionaryKey}"` : 'undefined')}`;
-    this._instanceProperty = `${(supplementalPropertyDigest.instanceProperty !== undefined ? `"${supplementalPropertyDigest.instanceProperty}"` : 'undefined')}`;
+    this._dictionaryKey = `${
+      supplementalPropertyDigest.dictionaryKey !== undefined
+        ? `"${supplementalPropertyDigest.dictionaryKey}"`
+        : "undefined"
+    }`;
+    this._instanceProperty = `${
+      supplementalPropertyDigest.instanceProperty !== undefined
+        ? `"${supplementalPropertyDigest.instanceProperty}"`
+        : "undefined"
+    }`;
   }
 
   addProperty(scope: TsScope, infoVariableName: string): void {
-    const typeUriString = this._typeUri !== undefined ? `'${this._typeUri}'` : 'undefined';
+    const typeUriString = this._typeUri !== undefined ? `'${this._typeUri}'` : "undefined";
 
     scope.line(`${infoVariableName}.addProperty("${this._propertyName}", 
       ${typeUriString}, 

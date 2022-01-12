@@ -1,15 +1,14 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {CodeWriter, TsDeclarationType, TsTypeAliasParams} from './internal';
-import {TsDeclaration} from './tsDeclaration';
-
+import { CodeWriter, TsDeclarationType, TsTypeAliasParams } from "./internal";
+import { TsDeclaration } from "./tsDeclaration";
 
 export class TsTypeAlias extends TsDeclaration {
   private _typeAlias: string;
 
-  constructor({name, typeToBeAliased, exports = false}: TsTypeAliasParams) {
-    super({name: name, type: TsDeclarationType.TypeAlias, exports: exports});
+  constructor({ name, typeToBeAliased, exports = false }: TsTypeAliasParams) {
+    super({ name: name, type: TsDeclarationType.TypeAlias, exports: exports });
     this._typeAlias = typeToBeAliased;
   }
 

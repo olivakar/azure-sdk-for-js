@@ -4,19 +4,11 @@
     "outDir": "./dist-esm",
     "declarationDir": "./types",
     "paths": {
-      "@azure/digital-twins-parser-generator": [
-        "./src/index"
-      ]
+      "@azure/digital-twins-parser-generator": ["./src/index"]
     },
     "noUnusedLocals": false,
     "noUnusedParameters": false
   },
-  "include": [
-    "src/**/*.ts",
-    "test/**/*.ts",
-    "samples-dev/*.ts"
-  ],
-  "exclude": [
-    "test/node/codeGenerator/expected/*.ts"
-  ]
+  "include": ["src/**/*.ts", "test/**/*.ts", "samples-dev/*.ts"],
+  "exclude": ["test/node/codeGenerator/expected/*.ts"]
 }

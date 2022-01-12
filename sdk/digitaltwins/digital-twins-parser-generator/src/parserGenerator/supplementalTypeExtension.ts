@@ -1,12 +1,12 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {SupplementalConstraint} from './supplementalConstraint';
-import {SupplementalCotype} from './supplementalCotype';
-import {SupplementalProperty} from './supplementalProperty';
-import {SupplementalType} from './supplementalType';
-import {SupplementalTypeDigest} from './metamodelDigest';
-import {TsScope} from '../codeGenerator';
+import { SupplementalConstraint } from "./supplementalConstraint";
+import { SupplementalCotype } from "./supplementalCotype";
+import { SupplementalProperty } from "./supplementalProperty";
+import { SupplementalType } from "./supplementalType";
+import { SupplementalTypeDigest } from "./metamodelDigest";
+import { TsScope } from "../codeGenerator";
 
 export class SupplementalTypeExtension extends SupplementalType {
   private _isAbstract: string;
@@ -42,18 +42,20 @@ export class SupplementalTypeExtension extends SupplementalType {
       this._cotypes.push(new SupplementalCotype(cotype, kindEnum));
     }
 
-    this._infoVariableName = `${this.getInfoVariableName(typeUri)}` || 'undefined';
+    this._infoVariableName = `${this.getInfoVariableName(typeUri)}` || "undefined";
     this._parentTypeVariableName = `${this.getTypeVariableName(supplementalTypeDigest.parent)}`;
   }
 
-  defineInfoVariable(scope: TsScope, contextIdVariables: {[x:string]: string}): void {
+  defineInfoVariable(scope: TsScope, contextIdVariables: { [x: string]: string }): void {
     let parentTypeVar;
-    if (this._parentTypeVariableName === 'undefined') {
-      parentTypeVar = 'undefined';
+    if (this._parentTypeVariableName === "undefined") {
+      parentTypeVar = "undefined";
     } else {
       parentTypeVar = `${this._parentTypeVariableName}.value`;
     }
-    const parameters = `ExtensionKind.${this._extensionKind.toUpperCase()}, ${contextIdVariables[this._extensionContext]}.value, ${this.typeVariableName}.value, ${this._isAbstract}, ${parentTypeVar}`;
+    const parameters = `ExtensionKind.${this._extensionKind.toUpperCase()}, ${
+      contextIdVariables[this._extensionContext]
+    }.value, ${this.typeVariableName}.value, ${this._isAbstract}, ${parentTypeVar}`;
     scope.line(`const ${this._infoVariableName} = new SupplementalTypeInfoImpl(${parameters});`);
 
     for (const property of this._properties) {
@@ -74,7 +76,9 @@ export class SupplementalTypeExtension extends SupplementalType {
   }
 
   assignInfoVariable(scope: TsScope, dictionaryVariableName: string) {
-    scope.line(`${dictionaryVariableName}.set(${this.typeVariableName}.value, ${this._infoVariableName});`);
+    scope.line(
+      `${dictionaryVariableName}.set(${this.typeVariableName}.value, ${this._infoVariableName});`
+    );
     // this.supplementalTypes.set(accelerationTypeIdV2.value, accelerationInfoV2);
   }
 }

@@ -1,13 +1,13 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {TsLibrary} from '../codeGenerator';
-import {TypeGenerator} from './typeGenerator';
+import { TsLibrary } from "../codeGenerator";
+import { TypeGenerator } from "./typeGenerator";
 
 export class MaterialTypeNameCollectionGenerator implements TypeGenerator {
   private readonly _typeNames: string[];
 
-  constructor(classNames: string[], contexts: {[x: string]: string}[]) {
+  constructor(classNames: string[], contexts: { [x: string]: string }[]) {
     this._typeNames = [];
 
     for (const className of classNames) {
@@ -25,11 +25,11 @@ export class MaterialTypeNameCollectionGenerator implements TypeGenerator {
   }
 
   generateCode(parserLibrary: TsLibrary): void {
-    const className = 'MaterialTypeNameCollection';
-    const collectionClass = parserLibrary.class({name: `${className}`, exports: true});
+    const className = "MaterialTypeNameCollection";
+    const collectionClass = parserLibrary.class({ name: `${className}`, exports: true });
     collectionClass.docString.line(`A collection of all material type names`);
     // TODO Needs a field declared globally outside the class.
-    collectionClass.field({name: 'typeNames', type: 'Set<string>', isStatic: true});
+    collectionClass.field({ name: "typeNames", type: "Set<string>", isStatic: true });
 
     const staticConstructor = collectionClass.staticCtor;
     staticConstructor.body.line(`${className}.typeNames = new Set<string>();`);
@@ -37,8 +37,12 @@ export class MaterialTypeNameCollectionGenerator implements TypeGenerator {
       staticConstructor.body.line(`${className}.typeNames.add('${typeName}')`);
     }
 
-    const isMaterialTypeMethod = collectionClass.method({name: 'isMaterialType', returnType: 'boolean', isStatic: true});
-    isMaterialTypeMethod.parameter({name: 'typeString', type: 'string'});
+    const isMaterialTypeMethod = collectionClass.method({
+      name: "isMaterialType",
+      returnType: "boolean",
+      isStatic: true
+    });
+    isMaterialTypeMethod.parameter({ name: "typeString", type: "string" });
     isMaterialTypeMethod.body.line(`return MaterialTypeNameCollection.typeNames.has(typeString)`);
   }
 }

@@ -1,8 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import fs from 'fs';
-
+import fs from "fs";
 
 export class CodeWriter {
   private _streamWriter: fs.WriteStream;
@@ -20,7 +19,7 @@ export class CodeWriter {
 
   close(): void {
     if (this._lastLineWasCloseScope) {
-      this._streamWriter.write('\r\n');
+      this._streamWriter.write("\r\n");
     }
     this._streamWriter.end();
   }
@@ -35,9 +34,9 @@ export class CodeWriter {
 
   openScope(suppressNewLine: boolean = false): void {
     if (suppressNewLine) {
-      this._streamWriter.write('{');
+      this._streamWriter.write("{");
     } else {
-      this._streamWriter.write('{\r\n');
+      this._streamWriter.write("{\r\n");
     }
     this._nextTextNeedsBlank = false;
     this._lastLineWasText = false;
@@ -46,9 +45,9 @@ export class CodeWriter {
 
   closeScope(): void {
     if (this._lastLineWasCloseScope) {
-      this._streamWriter.write('\r\n}');
+      this._streamWriter.write("\r\n}");
     } else {
-      this._streamWriter.write('}');
+      this._streamWriter.write("}");
     }
     this._nextTextNeedsBlank = true;
     this._lastLineWasText = false;
@@ -59,9 +58,9 @@ export class CodeWriter {
     if (this._nextTextNeedsBlank) {
       if (!suppressBreak) {
         if (this._lastLineWasCloseScope) {
-          this._streamWriter.write('\r\n');
+          this._streamWriter.write("\r\n");
         }
-        this._streamWriter.write('\r\n');
+        this._streamWriter.write("\r\n");
       }
 
       this._nextTextNeedsBlank = false;

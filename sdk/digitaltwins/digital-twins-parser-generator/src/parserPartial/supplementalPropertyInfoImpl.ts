@@ -2,8 +2,8 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {AggregateContext} from '../parser/internal';
-import {ValueConstraint} from '../parser/internal';
+import { AggregateContext } from "../parser/internal";
+import { ValueConstraint } from "../parser/internal";
 
 /**
  * SupplementalPropertyInfo provides information about a property that
@@ -32,7 +32,16 @@ export class SupplementalPropertyInfoImpl {
   /**
    * Initializes a new instance of the SupplementalPropertyInfo
    */
-  constructor(type: string, isPlural: boolean, isOptional: boolean, minCount?: number, maxCount?: number, dictionaryKey?: string, instanceProperty?: string, valueConstraint?: ValueConstraint) {
+  constructor(
+    type: string,
+    isPlural: boolean,
+    isOptional: boolean,
+    minCount?: number,
+    maxCount?: number,
+    dictionaryKey?: string,
+    instanceProperty?: string,
+    valueConstraint?: ValueConstraint
+  ) {
     // codegen-outline-begin constructor
     this.type = type;
     this.minCount = minCount;
@@ -42,8 +51,11 @@ export class SupplementalPropertyInfoImpl {
     this.dictionaryKey = dictionaryKey;
     this.instanceProperty = instanceProperty;
 
-    if (type.includes('dtmi:') ) {
-      this.valueConstraint = {requiredTypes: [type], requiredTypesString: AggregateContext.getTermOrUri(type)};
+    if (type.includes("dtmi:")) {
+      this.valueConstraint = {
+        requiredTypes: [type],
+        requiredTypesString: AggregateContext.getTermOrUri(type)
+      };
     }
     // codegen-outline-end
   }

@@ -1,11 +1,11 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {CodeWriter, TsMultiLine} from './internal';
+import { CodeWriter, TsMultiLine } from "./internal";
 
 export class TsMultiLineDocString extends TsMultiLine {
   constructor() {
-    super('/**');
+    super("/**");
   }
 
   line(text: string) {
@@ -14,7 +14,7 @@ export class TsMultiLineDocString extends TsMultiLine {
   }
 
   generateCode(codeWriter: CodeWriter) {
-    super.line('**/');
+    super.line("**/");
     super.generateCode(codeWriter);
   }
 }

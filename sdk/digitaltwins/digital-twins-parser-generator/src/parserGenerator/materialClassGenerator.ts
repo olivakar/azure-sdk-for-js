@@ -2,36 +2,50 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {NameFormatter} from './nameFormatter';
-import {TypeGenerator} from './typeGenerator';
-import {MaterialProperty} from './obverseGenerator/materialProperty';
-import {TsLibrary, TsAccess, TsDeclarationType, TsClass, TsScope, TsInheritanceType} from '../codeGenerator';
-import {ConcreteSubclass} from './obverseGenerator/concreteSubclass';
-import {MaterialClassParser} from './obverseGenerator/materialClassParser';
-import {Context, IdentifierRestriction, MaterialClassDigest, MaterialPropertyDigest} from './metamodelDigest';
-import {ExtensibleMaterialClass} from './obverseGenerator/extensibleMaterialClass';
-import {MaterialPropertyFactory} from './obverseGenerator/materialPropertyFactory';
-import {InternalProperty} from './obverseGenerator/internalProperty';
-import {MaterialClassAugmentor} from './obverseGenerator/materialClassAugmentor';
-import {PropertyKind} from './obverseGenerator/propertyKind';
-import {MaterialClassPartitioner} from './obverseGenerator/materialClassPartitioner';
-import {ParserGeneratorValues} from './parserGeneratorValues';
-import {DescendantControl} from './obverseGenerator/descendantControl';
-import {MaterialClassValidator} from './obverseGenerator/materialClassValidator';
-import {TypeKindValuesHelper} from './typeKindValuesHelper';
+import { NameFormatter } from "./nameFormatter";
+import { TypeGenerator } from "./typeGenerator";
+import { MaterialProperty } from "./obverseGenerator/materialProperty";
+import {
+  TsLibrary,
+  TsAccess,
+  TsDeclarationType,
+  TsClass,
+  TsScope,
+  TsInheritanceType
+} from "../codeGenerator";
+import { ConcreteSubclass } from "./obverseGenerator/concreteSubclass";
+import { MaterialClassParser } from "./obverseGenerator/materialClassParser";
+import {
+  Context,
+  IdentifierRestriction,
+  MaterialClassDigest,
+  MaterialPropertyDigest
+} from "./metamodelDigest";
+import { ExtensibleMaterialClass } from "./obverseGenerator/extensibleMaterialClass";
+import { MaterialPropertyFactory } from "./obverseGenerator/materialPropertyFactory";
+import { InternalProperty } from "./obverseGenerator/internalProperty";
+import { MaterialClassAugmentor } from "./obverseGenerator/materialClassAugmentor";
+import { PropertyKind } from "./obverseGenerator/propertyKind";
+import { MaterialClassPartitioner } from "./obverseGenerator/materialClassPartitioner";
+import { ParserGeneratorValues } from "./parserGeneratorValues";
+import { DescendantControl } from "./obverseGenerator/descendantControl";
+import { MaterialClassValidator } from "./obverseGenerator/materialClassValidator";
+import { TypeKindValuesHelper } from "./typeKindValuesHelper";
 
-export type TypeVersionToConcreteSubclasses = {[dtdlVersion: number]: ConcreteSubclass[]};
-export type TypeVersionToExtensibleMaterialClasses = {[dtdlVersion: number]: ExtensibleMaterialClass[]};
-export type TypeVersionToExtensibleMaterialSubTypes = {[dtdlVersion: number]: string[]};
+export type TypeVersionToConcreteSubclasses = { [dtdlVersion: number]: ConcreteSubclass[] };
+export type TypeVersionToExtensibleMaterialClasses = {
+  [dtdlVersion: number]: ExtensibleMaterialClass[];
+};
+export type TypeVersionToExtensibleMaterialSubTypes = { [dtdlVersion: number]: string[] };
 
 export interface MaterialClassGeneratorInstantiation {
   rawTypeName: string;
   rawBaseType: string;
   materialClassDigest: MaterialClassDigest;
-  contexts: {[contextId: string]: Context};
+  contexts: { [contextId: string]: Context };
   identifierDefinitions: IdentifierRestriction;
   descendantControls: DescendantControl[];
-  extensibleMaterialClasses: TypeVersionToExtensibleMaterialClasses,
+  extensibleMaterialClasses: TypeVersionToExtensibleMaterialClasses;
 }
 /**
  * A type generator which represents a material class later to be consumed by the model parser.
@@ -40,13 +54,13 @@ export class MaterialClassGenerator implements TypeGenerator {
   // The name of the type.
   private _rawTypeName: string;
   // The name of the interface associated with the obverse class eg 'ArrayInfo'.
-  private _typeName : string;
+  private _typeName: string;
   // The name of the implementation associated with the obverse class eg 'ArrayInfoImpl'.
-  private _typeImplName : string;
+  private _typeImplName: string;
   // The name of the parent interface eg 'EntityInfo'.
-  private _parentTypeName: string|undefined;
+  private _parentTypeName: string | undefined;
   // The name of the parent implementation eg 'EntityInfoImpl'.
-  private _parentTypeImplName: string|undefined;
+  private _parentTypeImplName: string | undefined;
   // The name of the base enum like EntityKinds
   private _baseKindEnum: string;
   // The name of the type enum like SchemaKinds
@@ -56,19 +70,19 @@ export class MaterialClassGenerator implements TypeGenerator {
   // The name of base type.
   private _rawBaseType: string;
   // The name of the base class.
-  private _baseTypeName : string;
+  private _baseTypeName: string;
   // A MaterialClassDigest object containing digested information about the material class.
   private _materialClassDigest: MaterialClassDigest;
   // A object that maps from a context ID to a Context, which is a dictionary of term definitions.
-  private _dtdlContexts: {[contextId: string]: Context};
+  private _dtdlContexts: { [contextId: string]: Context };
   // A object that maps from class name to a dictionary that maps from DTDL version to a object that restricts the identifiers for the class.
-  private _identifierDefinitions : IdentifierRestriction;
+  private _identifierDefinitions: IdentifierRestriction;
   // Defined by the materialClassDigest
   private _isAbstract: boolean;
   // Defined by the materialClassDigest
   private _isPartition: boolean;
   // A list of material properties.
-  private _properties : MaterialProperty[];
+  private _properties: MaterialProperty[];
   // A object that maps from dtdlVersion to a list of ConcreteSubclass objects.
   private _concreteSubclassesMap: TypeVersionToConcreteSubclasses;
   // A object that maps from dtdlVersion to a list of ExtensibleMaterialClass objects.
@@ -78,12 +92,26 @@ export class MaterialClassGenerator implements TypeGenerator {
   private _typeIds: string[];
   private _descendantControls: DescendantControl[];
 
-  constructor({rawTypeName, rawBaseType, materialClassDigest, contexts, identifierDefinitions, descendantControls, extensibleMaterialClasses}: MaterialClassGeneratorInstantiation) {
+  constructor({
+    rawTypeName,
+    rawBaseType,
+    materialClassDigest,
+    contexts,
+    identifierDefinitions,
+    descendantControls,
+    extensibleMaterialClasses
+  }: MaterialClassGeneratorInstantiation) {
     this._rawTypeName = rawTypeName;
     this._typeName = NameFormatter.formatNameAsInterface(rawTypeName);
     this._typeImplName = NameFormatter.formatNameAsImplementation(rawTypeName);
-    this._parentTypeName = (materialClassDigest.parentClass == null ? undefined : NameFormatter.formatNameAsInterface(materialClassDigest.parentClass));
-    this._parentTypeImplName = (materialClassDigest.parentClass == null ? undefined : NameFormatter.formatNameAsImplementation(materialClassDigest.parentClass));
+    this._parentTypeName =
+      materialClassDigest.parentClass == null
+        ? undefined
+        : NameFormatter.formatNameAsInterface(materialClassDigest.parentClass);
+    this._parentTypeImplName =
+      materialClassDigest.parentClass == null
+        ? undefined
+        : NameFormatter.formatNameAsImplementation(materialClassDigest.parentClass);
     this._rawBaseType = rawBaseType;
     this._baseTypeName = NameFormatter.formatNameAsInterface(rawBaseType);
     this._materialClassDigest = materialClassDigest;
@@ -105,50 +133,97 @@ export class MaterialClassGenerator implements TypeGenerator {
     this._addSubTypes();
   }
 
-  private _addSubTypes() : void {
+  private _addSubTypes(): void {
     for (const dtdlVersion of this._materialClassDigest.dtdlVersions) {
-      let extensibleMaterialSubtypes : string[] = [];
+      let extensibleMaterialSubtypes: string[] = [];
       if (dtdlVersion in this._materialClassDigest.extensibleMaterialSubclasses) {
-        extensibleMaterialSubtypes = this._materialClassDigest.extensibleMaterialSubclasses[dtdlVersion];
+        extensibleMaterialSubtypes = this._materialClassDigest.extensibleMaterialSubclasses[
+          dtdlVersion
+        ];
       }
       this._extensibleMaterialSubtypes[dtdlVersion] = extensibleMaterialSubtypes;
     }
   }
 
-  private _addProperties() : MaterialProperty[] {
+  private _addProperties(): MaterialProperty[] {
     const allMaterialProperties: MaterialProperty[] = [];
-    const versionProp = new InternalProperty('number', 'dtdlVersion', TsAccess.Public, '', 'Gets the DTDL version in which this element is defined.', true);
-    const idProp = new InternalProperty('string', 'id', TsAccess.Public, '', 'Gets the value of the \'@id\' property of the DTDL element that corresponds to this object.', true);
-    const childOfProp = new InternalProperty('string|undefined', 'childOf', TsAccess.Public, '', 'Gets the value of the \'@id\' property of the parent DTDL element in which this element is defined.', true);
-    const definedInProp = new InternalProperty('string|undefined', 'definedIn', TsAccess.Public, '', 'Gets the value of the \'@id\' property of the partition DTDL element in which this element is defined.', true);
+    const versionProp = new InternalProperty(
+      "number",
+      "dtdlVersion",
+      TsAccess.Public,
+      "",
+      "Gets the DTDL version in which this element is defined.",
+      true
+    );
+    const idProp = new InternalProperty(
+      "string",
+      "id",
+      TsAccess.Public,
+      "",
+      "Gets the value of the '@id' property of the DTDL element that corresponds to this object.",
+      true
+    );
+    const childOfProp = new InternalProperty(
+      "string|undefined",
+      "childOf",
+      TsAccess.Public,
+      "",
+      "Gets the value of the '@id' property of the parent DTDL element in which this element is defined.",
+      true
+    );
+    const definedInProp = new InternalProperty(
+      "string|undefined",
+      "definedIn",
+      TsAccess.Public,
+      "",
+      "Gets the value of the '@id' property of the partition DTDL element in which this element is defined.",
+      true
+    );
 
-    const typeKindValuesOred = Array.from(this._addConcreteTypeKinds()).join('|'); // should look like this 'array'|'map'|'enum'|'object';
+    const typeKindValuesOred = Array.from(this._addConcreteTypeKinds()).join("|"); // should look like this 'array'|'map'|'enum'|'object';
     const typeKindParameter = NameFormatter.formatNameAsEnumParameter(this._rawBaseType); // entityKind
-    const typeKindProp = new InternalProperty(`${this._typeKindEnum}`, `${typeKindParameter}`, TsAccess.Public, `${typeKindValuesOred}`, `Gets the kind of ${this._baseTypeName}.`, true);
+    const typeKindProp = new InternalProperty(
+      `${this._typeKindEnum}`,
+      `${typeKindParameter}`,
+      TsAccess.Public,
+      `${typeKindValuesOred}`,
+      `Gets the kind of ${this._baseTypeName}.`,
+      true
+    );
     allMaterialProperties.push(versionProp);
     allMaterialProperties.push(idProp);
     allMaterialProperties.push(childOfProp);
     allMaterialProperties.push(definedInProp);
     allMaterialProperties.push(typeKindProp);
 
-    Object.entries(this._materialClassDigest.properties).forEach(
-      ([key, value]) => {
-        const property = MaterialPropertyFactory.create(this._materialClassDigest.dtdlVersions, key, value as MaterialPropertyDigest, this._dtdlContexts, this._baseTypeName);
-        if (property !== undefined) {
-          allMaterialProperties.push(property);
-        }
-      },
-    );
+    Object.entries(this._materialClassDigest.properties).forEach(([key, value]) => {
+      const property = MaterialPropertyFactory.create(
+        this._materialClassDigest.dtdlVersions,
+        key,
+        value as MaterialPropertyDigest,
+        this._dtdlContexts,
+        this._baseTypeName
+      );
+      if (property !== undefined) {
+        allMaterialProperties.push(property);
+      }
+    });
     return allMaterialProperties;
   }
 
-  private _addConcreteSubclasses() : void {
+  private _addConcreteSubclasses(): void {
     for (const dtdlVersion of this._materialClassDigest.dtdlVersions) {
-      const concreteSubclasses : ConcreteSubclass[] = [];
+      const concreteSubclasses: ConcreteSubclass[] = [];
       if (dtdlVersion in this._materialClassDigest.concreteSubclasses) {
-        const subclassesNames : string[] = this._materialClassDigest.concreteSubclasses[dtdlVersion];
-        subclassesNames.forEach((element:string) => {
-          const concreteSubclass = new ConcreteSubclass(dtdlVersion, element, this._baseKindEnum, this._dtdlContexts, this._identifierDefinitions);
+        const subclassesNames: string[] = this._materialClassDigest.concreteSubclasses[dtdlVersion];
+        subclassesNames.forEach((element: string) => {
+          const concreteSubclass = new ConcreteSubclass(
+            dtdlVersion,
+            element,
+            this._baseKindEnum,
+            this._dtdlContexts,
+            this._identifierDefinitions
+          );
           concreteSubclasses.push(concreteSubclass);
         });
         this._concreteSubclassesMap[dtdlVersion] = concreteSubclasses;
@@ -156,8 +231,12 @@ export class MaterialClassGenerator implements TypeGenerator {
     }
   }
 
-  private _addConcreteTypeKinds() : Set<string> {
-    return TypeKindValuesHelper.generateConcreteTypesKindValues(this._rawBaseType, this._rawTypeName, this._materialClassDigest);
+  private _addConcreteTypeKinds(): Set<string> {
+    return TypeKindValuesHelper.generateConcreteTypesKindValues(
+      this._rawBaseType,
+      this._rawTypeName,
+      this._materialClassDigest
+    );
   }
 
   public generateType(parserLibrary: TsLibrary): void {
@@ -166,22 +245,34 @@ export class MaterialClassGenerator implements TypeGenerator {
 
   // TODO : Has been changed to public for testing. Please change once parsing done.
   public _addMaterialClass(parserLibrary: TsLibrary): TsClass {
-    const obverseInterface = parserLibrary.interface({name: this._typeName, exports: true, thingToExtend: this._parentTypeName});
+    const obverseInterface = parserLibrary.interface({
+      name: this._typeName,
+      exports: true,
+      thingToExtend: this._parentTypeName
+    });
     if (this._parentTypeName !== undefined) {
       obverseInterface.import(`import {${this._parentTypeName}} from './internal';`);
     }
 
-    const inheritanceNames : TsInheritanceType[] = [];
-    inheritanceNames.push({name: [this._typeName, 'TypeChecker'], type: TsDeclarationType.Interface});
+    const inheritanceNames: TsInheritanceType[] = [];
+    inheritanceNames.push({
+      name: [this._typeName, "TypeChecker"],
+      type: TsDeclarationType.Interface
+    });
 
-    const obverseClass = parserLibrary.class({name: this._typeImplName, exports: true, abstract: this._isAbstract, inheritance: inheritanceNames});
+    const obverseClass = parserLibrary.class({
+      name: this._typeImplName,
+      exports: true,
+      abstract: this._isAbstract,
+      inheritance: inheritanceNames
+    });
 
     obverseClass.import(`import {TypeChecker} from '../parser/type/typeChecker';`);
     obverseClass.import(`import {${this._typeName}} from './internal';`);
     obverseClass.import(`import {${this._typeKindEnum}} from './internal';`);
     obverseClass.import(`import {${this._baseKindEnum}} from './internal';`);
 
-    const internalPropNames : string[] = [];
+    const internalPropNames: string[] = [];
     if (this._properties) {
       this._properties.forEach((prop) => {
         const internalPropName = prop.addConstructorParam(obverseClass, obverseClass.ctor);
@@ -191,19 +282,37 @@ export class MaterialClassGenerator implements TypeGenerator {
       });
     }
 
-    const ctorScope : TsScope = obverseClass.ctor.body;
+    const ctorScope: TsScope = obverseClass.ctor.body;
     if (this._properties) {
       this._properties.forEach((prop) => {
         prop.generateConstructorCode(obverseClass, ctorScope);
-        prop.addMembers(this._materialClassDigest.dtdlVersions, obverseClass, obverseInterface, !this._isAbstract);
+        prop.addMembers(
+          this._materialClassDigest.dtdlVersions,
+          obverseClass,
+          obverseInterface,
+          !this._isAbstract
+        );
         prop.addImports(obverseInterface);
       });
     }
-    MaterialClassAugmentor.generateConstructorCode(ctorScope, this._isAbstract, this._parentTypeName === undefined);
+    MaterialClassAugmentor.generateConstructorCode(
+      ctorScope,
+      this._isAbstract,
+      this._parentTypeName === undefined
+    );
     MaterialClassPartitioner.generateConstructorCode(ctorScope, this._isPartition);
     MaterialClassParser.generateConstructorCode(ctorScope, this._parentTypeName === undefined);
-    const anyObjectProperties = this._properties.some((prop) => prop.propertyKind === PropertyKind.Object);
-    MaterialClassAugmentor.addMembers(obverseClass, obverseInterface, this._typeName, this._isAbstract, this._parentTypeName === undefined, anyObjectProperties);
+    const anyObjectProperties = this._properties.some(
+      (prop) => prop.propertyKind === PropertyKind.Object
+    );
+    MaterialClassAugmentor.addMembers(
+      obverseClass,
+      obverseInterface,
+      this._typeName,
+      this._isAbstract,
+      this._parentTypeName === undefined,
+      anyObjectProperties
+    );
     MaterialClassParser.addMembers(
       this._materialClassDigest.dtdlVersions,
       obverseClass,
@@ -218,7 +327,7 @@ export class MaterialClassGenerator implements TypeGenerator {
       this._concreteSubclassesMap,
       this._extensibleMaterialClassesMap,
       this._extensibleMaterialSubtypes,
-      this._properties,
+      this._properties
     );
     MaterialClassValidator.addMembers(
       this._materialClassDigest.dtdlVersions,
@@ -228,9 +337,15 @@ export class MaterialClassGenerator implements TypeGenerator {
       this._parentTypeName === undefined,
       this._isAbstract,
       this._materialClassDigest.instance,
-      this._materialClassDigest.properties,
+      this._materialClassDigest.properties
     );
-    MaterialClassPartitioner.addMembers(obverseClass, obverseInterface, this._typeName, this._isPartition, this._parentTypeName === undefined);
+    MaterialClassPartitioner.addMembers(
+      obverseClass,
+      obverseInterface,
+      this._typeName,
+      this._isPartition,
+      this._parentTypeName === undefined
+    );
 
     this._generateVersionlessTypes(obverseClass);
     this.generateApplyTransformationMethods(obverseClass);
@@ -241,7 +356,13 @@ export class MaterialClassGenerator implements TypeGenerator {
     this._generateTrySetObjectPropertyMethod(obverseClass);
 
     for (const descendantControl of this._descendantControls) {
-      descendantControl.addMembers(obverseClass, this._rawTypeName, this._parentTypeName === undefined, this._isAbstract, this._properties);
+      descendantControl.addMembers(
+        obverseClass,
+        this._rawTypeName,
+        this._parentTypeName === undefined,
+        this._isAbstract,
+        this._properties
+      );
     }
 
     return obverseClass;
@@ -249,105 +370,157 @@ export class MaterialClassGenerator implements TypeGenerator {
 
   generateApplyTransformationMethods(obverseClass: TsClass) {
     if (this._parentTypeName === undefined) {
-      const baseClassMethod = obverseClass.method({name: 'applyTransformations', returnType: 'void'});
-      baseClassMethod.parameter({name: 'model', type: 'Model'});
-      baseClassMethod.parameter({name: 'parsingErrors', type: 'ParsingError[]'});
+      const baseClassMethod = obverseClass.method({
+        name: "applyTransformations",
+        returnType: "void"
+      });
+      baseClassMethod.parameter({ name: "model", type: "Model" });
+      baseClassMethod.parameter({ name: "parsingErrors", type: "ParsingError[]" });
     } else if (!this._isAbstract) {
-      const concreteClassMethod = obverseClass.method({name: 'applyTransformations', returnType: 'void'});
-      concreteClassMethod.parameter({name: 'model', type: 'Model'});
-      concreteClassMethod.parameter({name: 'parsingErrors', type: 'ParsingError[]'});
+      const concreteClassMethod = obverseClass.method({
+        name: "applyTransformations",
+        returnType: "void"
+      });
+      concreteClassMethod.parameter({ name: "model", type: "Model" });
+      concreteClassMethod.parameter({ name: "parsingErrors", type: "ParsingError[]" });
 
       if (this._materialClassDigest.dtdlVersions) {
         for (const dtdlVersion of this._materialClassDigest.dtdlVersions) {
-          concreteClassMethod.body.if(`this.${ParserGeneratorValues.DtdlVersionPropertyName} === ${dtdlVersion}`)
+          concreteClassMethod.body
+            .if(`this.${ParserGeneratorValues.DtdlVersionPropertyName} === ${dtdlVersion}`)
             .line(`this.applyTransformationsV${dtdlVersion}(model, parsingErrors);`)
-            .line('');
+            .line("");
         }
       }
     }
 
     for (const dtdlVersion of this._materialClassDigest.dtdlVersions) {
-      const versionSpecificClassMethod = obverseClass.method({name: `applyTransformationsV${dtdlVersion}`});
-      versionSpecificClassMethod.parameter({name: 'model', type: 'Model'});
-      versionSpecificClassMethod.parameter({name: 'parsingErrors', type: 'ParsingError[]'});
+      const versionSpecificClassMethod = obverseClass.method({
+        name: `applyTransformationsV${dtdlVersion}`
+      });
+      versionSpecificClassMethod.parameter({ name: "model", type: "Model" });
+      versionSpecificClassMethod.parameter({ name: "parsingErrors", type: "ParsingError[]" });
 
       for (const descendantControl of this._descendantControls) {
-        descendantControl.addTransformation(versionSpecificClassMethod.body, dtdlVersion, this._rawTypeName, this._properties);
+        descendantControl.addTransformation(
+          versionSpecificClassMethod.body,
+          dtdlVersion,
+          this._rawTypeName,
+          this._properties
+        );
       }
     }
   }
 
   generateCheckRestrictionsMethods(obverseClass: TsClass, classIsAugmentable: boolean) {
     if (this._parentTypeName === undefined) {
-      const baseClassMethod = obverseClass.method({name: 'checkRestrictions', returnType: 'void'});
-      baseClassMethod.parameter({name: 'parsingErrors', type: 'ParsingError[]'});
+      const baseClassMethod = obverseClass.method({
+        name: "checkRestrictions",
+        returnType: "void"
+      });
+      baseClassMethod.parameter({ name: "parsingErrors", type: "ParsingError[]" });
       baseClassMethod.body;
     } else if (!this._isAbstract) {
-      const concreteClassMethod = obverseClass.method({name: 'checkRestrictions', returnType: 'void'});
-      concreteClassMethod.parameter({name: 'parsingErrors', type: 'ParsingError[]'});
+      const concreteClassMethod = obverseClass.method({
+        name: "checkRestrictions",
+        returnType: "void"
+      });
+      concreteClassMethod.parameter({ name: "parsingErrors", type: "ParsingError[]" });
       concreteClassMethod.body;
 
       if (this._materialClassDigest.dtdlVersions) {
         for (const dtdlVersion of this._materialClassDigest.dtdlVersions) {
-          concreteClassMethod.body.if(`this.${ParserGeneratorValues.DtdlVersionPropertyName} === ${dtdlVersion}`)
+          concreteClassMethod.body
+            .if(`this.${ParserGeneratorValues.DtdlVersionPropertyName} === ${dtdlVersion}`)
             .line(`this.checkRestrictionsV${dtdlVersion}(parsingErrors);`)
-            .line('');
+            .line("");
         }
       }
     }
 
     for (const dtdlVersion of this._materialClassDigest.dtdlVersions) {
-      const versionSpecificClassMethod = obverseClass.method({name: `checkRestrictionsV${dtdlVersion}`});
-      versionSpecificClassMethod.parameter({name: 'parsingErrors', type: 'ParsingError[]'});
+      const versionSpecificClassMethod = obverseClass.method({
+        name: `checkRestrictionsV${dtdlVersion}`
+      });
+      versionSpecificClassMethod.parameter({ name: "parsingErrors", type: "ParsingError[]" });
       versionSpecificClassMethod.body;
 
       for (const materialProperty of this._properties) {
-        materialProperty.addRestrictions(versionSpecificClassMethod.body, dtdlVersion, this._typeName, classIsAugmentable);
+        materialProperty.addRestrictions(
+          versionSpecificClassMethod.body,
+          dtdlVersion,
+          this._typeName,
+          classIsAugmentable
+        );
       }
       for (const descendantControl of this._descendantControls) {
-        descendantControl.addRestriction(versionSpecificClassMethod.body, dtdlVersion, this._rawTypeName);
+        descendantControl.addRestriction(
+          versionSpecificClassMethod.body,
+          dtdlVersion,
+          this._rawTypeName
+        );
       }
     }
   }
 
-  private _generateTrySetObjectPropertyMethod(obverseClass:TsClass) : void {
-    const trySetObjectPropertyMethod = obverseClass.method({name: 'trySetObjectProperty', returnType: 'boolean', abstract: false, isStatic: false})
-      .parameter({name: 'propertyName', type: 'string'})
-      .parameter({name: 'value', type: 'any'})
-      .parameter({name: 'key', type: 'string|undefined'});
+  private _generateTrySetObjectPropertyMethod(obverseClass: TsClass): void {
+    const trySetObjectPropertyMethod = obverseClass
+      .method({
+        name: "trySetObjectProperty",
+        returnType: "boolean",
+        abstract: false,
+        isStatic: false
+      })
+      .parameter({ name: "propertyName", type: "string" })
+      .parameter({ name: "value", type: "any" })
+      .parameter({ name: "key", type: "string|undefined" });
 
-    trySetObjectPropertyMethod.body.line('switch (propertyName) {');
+    trySetObjectPropertyMethod.body.line("switch (propertyName) {");
 
     this._properties.forEach((prop) => {
       if (this._typeName !== this._baseTypeName) {
         obverseClass.import(`import {${this._baseTypeName}} from './internal';`);
       }
-      prop.addCaseToTrySetObjectPropertySwitch(trySetObjectPropertyMethod.body, 'value', 'key');
+      prop.addCaseToTrySetObjectPropertySwitch(trySetObjectPropertyMethod.body, "value", "key");
     });
 
     trySetObjectPropertyMethod.body
-        .line('default:')
-          .line('break;')
+      .line("default:")
+      .line("break;")
       .line(`}`);
 
-    MaterialClassAugmentor.addTrySetObjectProperties(trySetObjectPropertyMethod.body, 'propertyName', 'value', 'key', this._isAbstract);
+    MaterialClassAugmentor.addTrySetObjectProperties(
+      trySetObjectPropertyMethod.body,
+      "propertyName",
+      "value",
+      "key",
+      this._isAbstract
+    );
 
-    trySetObjectPropertyMethod.body
-      .line('return false;');
+    trySetObjectPropertyMethod.body.line("return false;");
   }
 
-  private _generateVersionlessTypes(obverseClass:TsClass) : void {
-    obverseClass.field({name: '_versionlessTypes', access: TsAccess.Protected, isStatic: true, type: 'Set<string>'});
-    obverseClass.staticCtor.body.multiLine('this._versionlessTypes = new Set<string>()');
+  private _generateVersionlessTypes(obverseClass: TsClass): void {
+    obverseClass.field({
+      name: "_versionlessTypes",
+      access: TsAccess.Protected,
+      isStatic: true,
+      type: "Set<string>"
+    });
+    obverseClass.staticCtor.body.multiLine("this._versionlessTypes = new Set<string>()");
     for (const typeId of this._typeIds) {
-      obverseClass.staticCtor.body
-        .line(`.add('${typeId}')`);
+      obverseClass.staticCtor.body.line(`.add('${typeId}')`);
     }
   }
 
-  private _generateConcreteKinds(obverseClass:TsClass) : void {
-    obverseClass.field({name: '_concreteKinds', access: TsAccess.Protected, isStatic: true, type: `{[x: number]: ${this._typeKindEnum}[]}`});
-    obverseClass.staticCtor.body.line('this._concreteKinds = {};');
+  private _generateConcreteKinds(obverseClass: TsClass): void {
+    obverseClass.field({
+      name: "_concreteKinds",
+      access: TsAccess.Protected,
+      isStatic: true,
+      type: `{[x: number]: ${this._typeKindEnum}[]}`
+    });
+    obverseClass.staticCtor.body.line("this._concreteKinds = {};");
     for (const version of this._materialClassDigest.dtdlVersions) {
       obverseClass.staticCtor.body.line(`this._concreteKinds[${version}] = [];`);
       if (Object.prototype.hasOwnProperty.call(this._concreteSubclassesMap, version)) {
@@ -359,20 +532,26 @@ export class MaterialClassGenerator implements TypeGenerator {
     }
   }
 
-  private _generateBadTypeFormatStrings(obverseClass:TsClass) : void {
-    obverseClass.field({name: '_badTypeActionFormat', access: TsAccess.Protected, isStatic: true, type: `{[x: number]: string}`});
-    obverseClass.field({name: '_badTypeCauseFormat', access: TsAccess.Protected, isStatic: true, type: `{[x: number]: string}`});
-    obverseClass.staticCtor.body.line('this._badTypeActionFormat = {};');
-    obverseClass.staticCtor.body.line('this._badTypeCauseFormat = {};');
-    Object.entries(this._materialClassDigest.badTypeActionFormat).forEach(
-      ([key, value]) => {
-        obverseClass.staticCtor.body.line(`this._badTypeActionFormat[${key}] = \`${value}\``);
-      },
-    );
-    Object.entries(this._materialClassDigest.badTypeCauseFormat).forEach(
-      ([k, v]) => {
-        obverseClass.staticCtor.body.line(`this._badTypeCauseFormat[${k}] = \`${v}\``);
-      },
-    );
+  private _generateBadTypeFormatStrings(obverseClass: TsClass): void {
+    obverseClass.field({
+      name: "_badTypeActionFormat",
+      access: TsAccess.Protected,
+      isStatic: true,
+      type: `{[x: number]: string}`
+    });
+    obverseClass.field({
+      name: "_badTypeCauseFormat",
+      access: TsAccess.Protected,
+      isStatic: true,
+      type: `{[x: number]: string}`
+    });
+    obverseClass.staticCtor.body.line("this._badTypeActionFormat = {};");
+    obverseClass.staticCtor.body.line("this._badTypeCauseFormat = {};");
+    Object.entries(this._materialClassDigest.badTypeActionFormat).forEach(([key, value]) => {
+      obverseClass.staticCtor.body.line(`this._badTypeActionFormat[${key}] = \`${value}\``);
+    });
+    Object.entries(this._materialClassDigest.badTypeCauseFormat).forEach(([k, v]) => {
+      obverseClass.staticCtor.body.line(`this._badTypeCauseFormat[${k}] = \`${v}\``);
+    });
   }
 }

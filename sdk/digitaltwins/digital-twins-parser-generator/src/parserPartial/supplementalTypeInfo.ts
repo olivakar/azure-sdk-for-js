@@ -1,3 +1,1 @@
-export interface SupplementalTypeInfo {
-
-}
+export interface SupplementalTypeInfo {}

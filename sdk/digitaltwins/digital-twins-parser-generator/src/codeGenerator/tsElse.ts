@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {TsScope} from './internal';
+import { TsScope } from "./internal";
 
 export class TsElse extends TsScope {
   constructor() {

@@ -2,7 +2,7 @@
 // Licensed under the MIT license.
 
 export class DependencyGraph {
-  edges: {[key: string]: string[]} ;
+  edges: { [key: string]: string[] };
   nodes: string[];
 
   constructor() {

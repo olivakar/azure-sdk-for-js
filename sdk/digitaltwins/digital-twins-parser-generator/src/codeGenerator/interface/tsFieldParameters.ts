@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {TsAccess} from '../internal';
+import { TsAccess } from "../internal";
 
 export interface TsFieldParams {
   name: string;

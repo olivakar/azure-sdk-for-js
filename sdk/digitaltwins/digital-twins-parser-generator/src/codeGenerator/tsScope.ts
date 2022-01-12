@@ -13,8 +13,8 @@ import {
   TsMultiLine,
   TsStatement,
   TsTry,
-  TsWhile,
-} from './internal';
+  TsWhile
+} from "./internal";
 
 export class TsScope implements TsStatement {
   protected _firstLine?: string;
@@ -81,14 +81,14 @@ export class TsScope implements TsStatement {
     return tsForEach;
   }
 
-  function({name, returnType, functionType, abstract, access, isStatic}: TsFunctionParams) {
+  function({ name, returnType, functionType, abstract, access, isStatic }: TsFunctionParams) {
     const tsFunction = new TsFunction({
       name: name,
       returnType: returnType,
       functionType: functionType,
       abstract: abstract,
       access: access,
-      isStatic: isStatic,
+      isStatic: isStatic
     });
     this._statements.push(tsFunction);
     return tsFunction;
@@ -103,16 +103,14 @@ export class TsScope implements TsStatement {
       codeWriter.writeLine(`${this._firstLine} `, true, this._suppressBreak);
     }
     codeWriter.openScope();
-    for (let i=0; i<this._inlines.length; i++) {
+    for (let i = 0; i < this._inlines.length; i++) {
       const inlineBlock = this._inlines[i];
       inlineBlock.generateCode(codeWriter);
     }
-    for (let i=0; i<this._statements.length; i++) {
+    for (let i = 0; i < this._statements.length; i++) {
       const statement = this._statements[i];
       statement.generateCode(codeWriter);
     }
     codeWriter.closeScope();
   }
 }
-
-

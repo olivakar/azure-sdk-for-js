@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {CodeWriter, TsParameterParams} from './internal';
+import { CodeWriter, TsParameterParams } from "./internal";
 
 // TODO: Add ts_destructured_parameter.ts for creating parameters that are just
 // destructured Objects.
@@ -12,8 +12,7 @@ export class TsParameter {
   private _initializer?: string;
   private _optional?: boolean;
 
-
-  constructor({name, type, description, initializer, optional}: TsParameterParams) {
+  constructor({ name, type, description, initializer, optional }: TsParameterParams) {
     this._name = name;
     this._type = type;
     this._description = description;
@@ -22,8 +21,8 @@ export class TsParameter {
   }
 
   toString(): string {
-    const suffix = this._initializer ? ` = ${this._initializer}` : '';
-    if (this._type !== undefined && this._type !== '') {
+    const suffix = this._initializer ? ` = ${this._initializer}` : "";
+    if (this._type !== undefined && this._type !== "") {
       return `${this._name}${this._chooseOptionalPunctuator()} ${this._type}${suffix}`;
     } else {
       return `${this._name}${suffix}`;
@@ -44,13 +43,13 @@ export class TsParameter {
 
   private _chooseOptionalPunctuator() {
     if (this._optional) {
-      return '?:';
+      return "?:";
     }
-    return ':';
+    return ":";
   }
 
   generateCode(codeWriter: CodeWriter) {
-    const suffix = this._initializer ? ` = ${this._initializer}` : '';
+    const suffix = this._initializer ? ` = ${this._initializer}` : "";
     const punctuation = this._chooseOptionalPunctuator();
     codeWriter.writeLine(`${this._name}${punctuation} ${this._type}${suffix}`);
   }

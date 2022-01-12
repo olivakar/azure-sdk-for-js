@@ -1,8 +1,8 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {TsClass, TsScope} from '../../codeGenerator';
-import {MaterialProperty} from './materialProperty';
+import { TsClass, TsScope } from "../../codeGenerator";
+import { MaterialProperty } from "./materialProperty";
 
 export interface DescendantControl {
   /**
@@ -19,7 +19,13 @@ export interface DescendantControl {
    * @param classIsAbstract - True if the material class is abstract.
    * @param materialProperties - A list of the MaterialProperty objects associated with the material class.
    */
-  addMembers(obverseClass: TsClass, typeName: string, classIsBase: boolean, classIsAbstract: boolean, materialProperties: MaterialProperty[]): void;
+  addMembers(
+    obverseClass: TsClass,
+    typeName: string,
+    classIsBase: boolean,
+    classIsAbstract: boolean,
+    materialProperties: MaterialProperty[]
+  ): void;
 
   /**
    * Add code to the CheckRestrictions method in the material class that has this control.
@@ -36,7 +42,12 @@ export interface DescendantControl {
    * @param typeName - The type name (DTDL term) corresponding to the material class.
    * @param materialProperties - A list of the MaterialProperty objects associated with the material class.
    */
-  addTransformation(applyTransformationsMethodBody: TsScope, dtdlVersion: number, typeName: string, materialProperties: MaterialProperty[]): void;
+  addTransformation(
+    applyTransformationsMethodBody: TsScope,
+    dtdlVersion: number,
+    typeName: string,
+    materialProperties: MaterialProperty[]
+  ): void;
 
   // ALL EXEMPLIFICATION CODE IS UNNECESSARY. TODO: EVENTUALLY REMOVE THIS.
   /**

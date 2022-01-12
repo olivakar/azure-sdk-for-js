@@ -3,16 +3,16 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {LiteralType} from './literalType';
+import { LiteralType } from "./literalType";
 
 export class BooleanLiteralType implements LiteralType {
   canBeNull(isOptional: boolean): boolean {
     return false;
   }
   getSingularType(isOptional: boolean): string {
-    return 'boolean';
+    return "boolean";
   }
   getInitialValue(isOptional: boolean): string {
-    return 'false';
+    return "false";
   }
 }

@@ -2,15 +2,15 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import * as sinon from 'sinon';
-import {assert} from 'chai';
+import * as sinon from "sinon";
+import { assert } from "chai";
 
-describe('parser - browser', function() {
+describe("parser - browser", function() {
   afterEach(function() {
     sinon.restore();
   });
 
-  describe('codeGenerator', function() {
+  describe("codeGenerator", function() {
     assert(true);
   });
 });

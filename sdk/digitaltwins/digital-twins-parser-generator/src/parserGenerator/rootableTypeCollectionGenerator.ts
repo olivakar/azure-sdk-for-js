@@ -1,12 +1,12 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {TsAccess, TsLibrary} from '../codeGenerator';
-import {TypeGenerator} from './typeGenerator';
+import { TsAccess, TsLibrary } from "../codeGenerator";
+import { TypeGenerator } from "./typeGenerator";
 
 export class RootableTypeCollectionGenerator implements TypeGenerator {
-  private readonly _rootableClasses: {[x: number]: string[]};
-  constructor(rootableClasses: {[x:number]: string[]}) {
+  private readonly _rootableClasses: { [x: number]: string[] };
+  constructor(rootableClasses: { [x: number]: string[] }) {
     this._rootableClasses = rootableClasses;
   }
   generateType(parserLibrary: TsLibrary): void {
@@ -14,21 +14,39 @@ export class RootableTypeCollectionGenerator implements TypeGenerator {
   }
 
   generateCode(parserLibrary: TsLibrary): void {
-    const collectionClass = parserLibrary.class({name: 'RootableTypeCollection', exports: true});
-    collectionClass.docString.line('A collection of rootable DTDL types, which are the types permitted at the top level of a DTDL model.');
+    const collectionClass = parserLibrary.class({ name: "RootableTypeCollection", exports: true });
+    collectionClass.docString.line(
+      "A collection of rootable DTDL types, which are the types permitted at the top level of a DTDL model."
+    );
 
-    collectionClass.field({name: '_typeKeyword', type: 'string', isStatic: true, access: TsAccess.Private, value: `'@type'`});
-    collectionClass.field({name: '_rootableTypeStrings', type: '{[dtdlVersion: number]: Set<string>}', isStatic: true, access: TsAccess.Private});
-    collectionClass.field({name: '_rootableTypeDescriptions', type: '{[dtdlVersion: number]: string}', isStatic: true, access: TsAccess.Private});
+    collectionClass.field({
+      name: "_typeKeyword",
+      type: "string",
+      isStatic: true,
+      access: TsAccess.Private,
+      value: `'@type'`
+    });
+    collectionClass.field({
+      name: "_rootableTypeStrings",
+      type: "{[dtdlVersion: number]: Set<string>}",
+      isStatic: true,
+      access: TsAccess.Private
+    });
+    collectionClass.field({
+      name: "_rootableTypeDescriptions",
+      type: "{[dtdlVersion: number]: string}",
+      isStatic: true,
+      access: TsAccess.Private
+    });
 
     const constructor = collectionClass.staticCtor;
 
-    constructor.body.line('this._rootableTypeStrings = {');
+    constructor.body.line("this._rootableTypeStrings = {");
     for (const key of Object.keys(this._rootableClasses)) {
       constructor.body.line(`'${key}': new Set<string>(),`);
     }
-    constructor.body.line('};');
-    constructor.body.line('');
+    constructor.body.line("};");
+    constructor.body.line("");
 
     for (const [key, value] of Object.entries(this._rootableClasses)) {
       for (const typeName of value) {
@@ -36,12 +54,14 @@ export class RootableTypeCollectionGenerator implements TypeGenerator {
       }
     }
 
-    constructor.body.line('');
-    constructor.body.line('this._rootableTypeDescriptions = {');
+    constructor.body.line("");
+    constructor.body.line("this._rootableTypeDescriptions = {");
     for (const key of Object.keys(this._rootableClasses)) {
-      constructor.body.line(`'${key}': Array.from(this._rootableTypeStrings[${key}].values()).map((s) => \`'\${s}'\`).join(' or '),`);
+      constructor.body.line(
+        `'${key}': Array.from(this._rootableTypeStrings[${key}].values()).map((s) => \`'\${s}'\`).join(' or '),`
+      );
     }
-    constructor.body.line('};');
-    collectionClass.inline('./src/parserPartial/rootableTypeCollection.ts', 'methods');
+    constructor.body.line("};");
+    collectionClass.inline("./src/parserPartial/rootableTypeCollection.ts", "methods");
   }
 }

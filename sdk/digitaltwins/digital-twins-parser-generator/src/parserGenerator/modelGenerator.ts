@@ -2,10 +2,10 @@
 // Licensed under the MIT license.
 /* eslint-disable valid-jsdoc */
 
-import {TsClass, TsLibrary} from '../codeGenerator';
-import {NameFormatter} from './nameFormatter';
-import {ParserGeneratorValues} from './parserGeneratorValues';
-import {TypeGenerator} from './typeGenerator';
+import { TsClass, TsLibrary } from "../codeGenerator";
+import { NameFormatter } from "./nameFormatter";
+import { ParserGeneratorValues } from "./parserGeneratorValues";
+import { TypeGenerator } from "./typeGenerator";
 
 // TODO: When PartitionRestriction is implemented, replace this with an import
 type PartitionRestriction = any;
@@ -16,11 +16,14 @@ export class ModelGenerator implements TypeGenerator {
   private _baseEnumPropertyName: string;
   private _baseClassImplName: string;
   private readonly _partitionClasses: string[];
-  private readonly _partitionRestrictions?: {[x:number]: PartitionRestriction}
-  private readonly _refKind = 'reference';
+  private readonly _partitionRestrictions?: { [x: number]: PartitionRestriction };
+  private readonly _refKind = "reference";
 
-
-  constructor(baseName: string, partitionClasses: string[], partitionRestrictions?: {[x:number]: PartitionRestriction}) {
+  constructor(
+    baseName: string,
+    partitionClasses: string[],
+    partitionRestrictions?: { [x: number]: PartitionRestriction }
+  ) {
     this._baseEnumName = NameFormatter.formatNameForEnumDisjunction(baseName);
     this._baseEnumPropertyName = NameFormatter.formatNameAsEnumParameter(baseName);
     this._baseClassImplName = NameFormatter.formatNameAsImplementation(baseName);
@@ -36,16 +39,20 @@ export class ModelGenerator implements TypeGenerator {
    * parserPartial/model.ts, as well as handwritten auxiliary code
    */
   generateCode(parserLibrary: TsLibrary) {
-    const referenceClassName = NameFormatter.formatNameAsImplementation(ParserGeneratorValues.referenceObverseName);
+    const referenceClassName = NameFormatter.formatNameAsImplementation(
+      ParserGeneratorValues.referenceObverseName
+    );
 
-    const modelClass: TsClass = parserLibrary.class({name: 'Model', exports: true});
-    modelClass.docString.line('A DTDL model.');
+    const modelClass: TsClass = parserLibrary.class({ name: "Model", exports: true });
+    modelClass.docString.line("A DTDL model.");
     // TODO: Should be replaced with inline of topoffile from model.ts
     modelClass
       .import(`import {ParsingError, createParsingError, InDTMI} from '../parser';`)
-      .import(`import {ParsedObjectPropertyInfo, ${referenceClassName}, ModelDict, SupplementalTypeInfo, ${this._baseEnumName}, ${this._baseClassImplName}} from './internal';`);
+      .import(
+        `import {ParsedObjectPropertyInfo, ${referenceClassName}, ModelDict, SupplementalTypeInfo, ${this._baseEnumName}, ${this._baseClassImplName}} from './internal';`
+      );
 
-    modelClass.field({name: 'dict', type: 'ModelDict'});
+    modelClass.field({ name: "dict", type: "ModelDict" });
     // TODO: This is going to be necesary if ParititonRestrictions are necessary.
     // modelClass.field({name: '_parititionMaxBytes', type: '{[x:string]: number}', isStatic: true, readonly: true});
 
@@ -63,7 +70,7 @@ export class ModelGenerator implements TypeGenerator {
     this._generateApplyTransformations(modelClass);
 
     // Inline Partial Class methods
-    modelClass.inline('./src/parserPartial/model.ts', 'method-block');
+    modelClass.inline("./src/parserPartial/model.ts", "method-block");
   }
 
   // TODO: This is going to be necesary if ParititonRestrictions are necessary.
@@ -87,25 +94,27 @@ export class ModelGenerator implements TypeGenerator {
 
   private _generateModelConstructor(modelClass: TsClass) {
     const constructor = modelClass.ctor;
-    constructor.body
-      .inline('./src/parserPartial/model.ts', 'constructor');
+    constructor.body.inline("./src/parserPartial/model.ts", "constructor");
   }
 
   private _generateIsPartitionMethod(modelClass: TsClass) {
-    const isPartitionMethod = modelClass.method({name: 'isPartition', returnType: 'boolean'});
-    isPartitionMethod.parameter({name: 'elementId', type: 'string'});
-    isPartitionMethod.body.line(`return (this.dict[elementId] as ${this._baseClassImplName})?.${ParserGeneratorValues.IsPartitionMethodName} || false;`);
+    const isPartitionMethod = modelClass.method({ name: "isPartition", returnType: "boolean" });
+    isPartitionMethod.parameter({ name: "elementId", type: "string" });
+    isPartitionMethod.body.line(
+      `return (this.dict[elementId] as ${this._baseClassImplName})?.${ParserGeneratorValues.IsPartitionMethodName} || false;`
+    );
   }
 
   private _generateAddTypeMethod(modelClass: TsClass) {
-    const addTypeMethod = modelClass.method({name: 'addType', returnType: 'void'});
+    const addTypeMethod = modelClass.method({ name: "addType", returnType: "void" });
     // TODO: correct? originally: setPartitionInfoMethod.Param("JToken", "partitionJToken", "<c>JToken</c> containing the partition JSON.");
     addTypeMethod
-      .parameter({name: 'elementId', type: 'string'})
-      .parameter({name: 'supplementalTypeId', type: 'any'})
-      .parameter({name: 'supplementalType', type: 'SupplementalTypeInfo'});
-    addTypeMethod.body
-      .line(`(this.dict[elementId] as ${this._baseClassImplName})?.addType(supplementalTypeId, supplementalType);`);
+      .parameter({ name: "elementId", type: "string" })
+      .parameter({ name: "supplementalTypeId", type: "any" })
+      .parameter({ name: "supplementalType", type: "SupplementalTypeInfo" });
+    addTypeMethod.body.line(
+      `(this.dict[elementId] as ${this._baseClassImplName})?.addType(supplementalTypeId, supplementalType);`
+    );
   }
 
   // TODO: This will be necessary after we fully implement real partitioning. For now we can comment out.
@@ -131,67 +140,84 @@ export class ModelGenerator implements TypeGenerator {
   // }
 
   private _generateDoesPropertyDictContainKeyMethod(modelClass: TsClass) {
-    const doesPropertyDictContainKeyMethod = modelClass.method({name: 'doesPropertyDictContainKey', returnType: 'boolean'});
+    const doesPropertyDictContainKeyMethod = modelClass.method({
+      name: "doesPropertyDictContainKey",
+      returnType: "boolean"
+    });
     doesPropertyDictContainKeyMethod
-        .parameter({name: 'elementId', type: 'string'})
-        .parameter({name: 'propertyName', type: 'string'})
-        .parameter({name: 'key', type: 'string', optional: true});
-    doesPropertyDictContainKeyMethod.body
-      .line(`return (this.dict[elementId] as ${this._baseClassImplName})?.doesPropertyDictContainKey(propertyName, key) || false;`);
+      .parameter({ name: "elementId", type: "string" })
+      .parameter({ name: "propertyName", type: "string" })
+      .parameter({ name: "key", type: "string", optional: true });
+    doesPropertyDictContainKeyMethod.body.line(
+      `return (this.dict[elementId] as ${this._baseClassImplName})?.doesPropertyDictContainKey(propertyName, key) || false;`
+    );
   }
 
   private _generateTrySetObjectPropertyMethod(modelClass: TsClass, referenceClassName: string) {
-    const trySetObjectPropertyMethod = modelClass.method({name: 'trySetObjectProperty', returnType: 'boolean'});
+    const trySetObjectPropertyMethod = modelClass.method({
+      name: "trySetObjectProperty",
+      returnType: "boolean"
+    });
     trySetObjectPropertyMethod
-        .parameter({name: 'elementId', type: 'string'})
-        .parameter({name: 'propertyName', type: 'string'})
-        .parameter({name: 'referencedElementId', type: 'string'})
-        .parameter({name: 'key', type: 'string', optional: true});
+      .parameter({ name: "elementId", type: "string" })
+      .parameter({ name: "propertyName", type: "string" })
+      .parameter({ name: "referencedElementId", type: "string" })
+      .parameter({ name: "key", type: "string", optional: true });
     trySetObjectPropertyMethod.body
-        .line(`const obj = Object.keys(this.dict).includes(referencedElementId) ? this.dict[referencedElementId] : new ${referenceClassName}(0, referencedElementId, undefined, undefined, 'reference');`)
-        .line(`return (this.dict[elementId] as ${this._baseClassImplName})?.trySetObjectProperty(propertyName, obj, key) || false;`);
+      .line(
+        `const obj = Object.keys(this.dict).includes(referencedElementId) ? this.dict[referencedElementId] : new ${referenceClassName}(0, referencedElementId, undefined, undefined, 'reference');`
+      )
+      .line(
+        `return (this.dict[elementId] as ${this._baseClassImplName})?.trySetObjectProperty(propertyName, obj, key) || false;`
+      );
   }
 
   private _generateIsKindInSetMethod(modelClass: TsClass) {
-    const isKindInSetMethod = modelClass.method({name: 'isKindInSet', returnType: 'boolean'});
+    const isKindInSetMethod = modelClass.method({ name: "isKindInSet", returnType: "boolean" });
     isKindInSetMethod
-      .parameter({name: 'elementId', type: 'string'})
-      .parameter({name: 'kindSet', type: `${this._baseEnumName}[]`});
+      .parameter({ name: "elementId", type: "string" })
+      .parameter({ name: "kindSet", type: `${this._baseEnumName}[]` });
     isKindInSetMethod.body
       .if(`this.dict[elementId]?.entityKind !== undefined`)
-        .line(`return kindSet.includes(this.dict[elementId]?.${this._baseEnumPropertyName} as ${this._baseEnumName});`);
-    isKindInSetMethod.body
-      .line('return false;');
+      .line(
+        `return kindSet.includes(this.dict[elementId]?.${this._baseEnumPropertyName} as ${this._baseEnumName});`
+      );
+    isKindInSetMethod.body.line("return false;");
   }
 
   private _generateGetKindStringMethod(modelClass: TsClass) {
-    const getKindStringMethod = modelClass.method({name: 'getKindString', returnType: 'string'});
-    getKindStringMethod
-      .parameter({name: 'elementId', type: 'string'});
+    const getKindStringMethod = modelClass.method({ name: "getKindString", returnType: "string" });
+    getKindStringMethod.parameter({ name: "elementId", type: "string" });
     // TODO This weird fix is for an error that happens due to static loading of standard elements
     // which calls the construtor of BooleanInfo and says Cannot set property '2' of undefined
     // which means Cannot set BOOLEAN of undefined. And hence all entityKind field, param in constructor, getter
     // has been made to accept undefined.
     getKindStringMethod.body
-    .line('const element = this.dict[elementId];')
-    // .line('return element !== undefined ? EntityKind[element.entityKind].substring(0, 1) + EntityKind[element.entityKind].substring(1).toLowerCase() : \'\';') // TODO This is going to return in uppercase. So the test case has been changed to do so.
-    // .line(`return this.dict[elementId]?.${this._baseEnumPropertyName}?.toString() || '';`);
-    // getKindStringMethod.body.line(`return this.dict[elementId]?.${this._baseEnumPropertyName}.toString() || '';`);
-    .line(`return element !== undefined ? element.entityKind.substring(0, 1).toUpperCase() + element.entityKind.substring(1) : '';`);
+      .line("const element = this.dict[elementId];")
+      // .line('return element !== undefined ? EntityKind[element.entityKind].substring(0, 1) + EntityKind[element.entityKind].substring(1).toLowerCase() : \'\';') // TODO This is going to return in uppercase. So the test case has been changed to do so.
+      // .line(`return this.dict[elementId]?.${this._baseEnumPropertyName}?.toString() || '';`);
+      // getKindStringMethod.body.line(`return this.dict[elementId]?.${this._baseEnumPropertyName}.toString() || '';`);
+      .line(
+        `return element !== undefined ? element.entityKind.substring(0, 1).toUpperCase() + element.entityKind.substring(1) : '';`
+      );
   }
 
   private _generateCheckRestricitons(modelClass: TsClass) {
-    const checkRestrictionsMethod = modelClass.method({name: 'checkRestrictions', returnType: 'void'});
-    checkRestrictionsMethod
-      .parameter({name: 'parsingErrors', type: 'ParsingError[]'});
+    const checkRestrictionsMethod = modelClass.method({
+      name: "checkRestrictions",
+      returnType: "void"
+    });
+    checkRestrictionsMethod.parameter({ name: "parsingErrors", type: "ParsingError[]" });
     checkRestrictionsMethod.body; // TODO: IMPLEMENT ALL OF THESE
     // .line(`throw new Error('Method not implemented.');`);
   }
 
   private _generateApplyTransformations(modelClass: TsClass) {
-    const applyTransformationsMethod = modelClass.method({name: 'applyTransformations', returnType: 'void'});
-    applyTransformationsMethod
-      .parameter({name: 'parsingErrors', type: 'ParsingError[]'});
+    const applyTransformationsMethod = modelClass.method({
+      name: "applyTransformations",
+      returnType: "void"
+    });
+    applyTransformationsMethod.parameter({ name: "parsingErrors", type: "ParsingError[]" });
     applyTransformationsMethod.body;
     // .line(`throw new Error('Method not implemented.');`);
   }

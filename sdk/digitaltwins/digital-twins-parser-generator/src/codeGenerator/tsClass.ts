@@ -14,8 +14,8 @@ import {
   TsFunctionType,
   TsInheritanceType,
   TsInline,
-  TsMultiLine,
-} from './internal';
+  TsMultiLine
+} from "./internal";
 
 /**
  * Implements Class Code Generation
@@ -32,10 +32,8 @@ export class TsClass extends TsDeclaration {
   private _inlines: TsInline[];
   private _suffixCode?: TsMultiLine;
 
-  constructor(
-    {name, exports, abstract, inheritance}: TsClassParams,
-  ) {
-    super({name, type: TsDeclarationType.Class, exports: exports});
+  constructor({ name, exports, abstract, inheritance }: TsClassParams) {
+    super({ name, type: TsDeclarationType.Class, exports: exports });
     this._isAbstract = abstract;
     this._inheritance = inheritance;
 
@@ -72,13 +70,25 @@ export class TsClass extends TsDeclaration {
     return this;
   }
 
-  method({name, returnType, abstract, access, isStatic}: { name: string; returnType?: string; abstract?: boolean; access?: TsAccess; isStatic ?: boolean}): TsFunction {
+  method({
+    name,
+    returnType,
+    abstract,
+    access,
+    isStatic
+  }: {
+    name: string;
+    returnType?: string;
+    abstract?: boolean;
+    access?: TsAccess;
+    isStatic?: boolean;
+  }): TsFunction {
     const tsMethod = new TsFunction({
       name: name,
       returnType: returnType,
       functionType: TsFunctionType.Method,
       abstract: abstract,
-      isStatic: isStatic,
+      isStatic: isStatic
     });
     if (!abstract) {
       tsMethod.body;
@@ -95,23 +105,39 @@ export class TsClass extends TsDeclaration {
     return this._fields.some((f) => f.name === fieldName);
   }
 
-  getter({name, returnType, access}: { name: string; returnType?: string; access?: TsAccess; }): TsFunction {
+  getter({
+    name,
+    returnType,
+    access
+  }: {
+    name: string;
+    returnType?: string;
+    access?: TsAccess;
+  }): TsFunction {
     const tsGetter = new TsFunction({
       name: name,
       returnType: returnType,
       functionType: TsFunctionType.Getter,
-      access: access,
+      access: access
     });
     this._getters.push(tsGetter);
     return tsGetter;
   }
 
-  setter({name, returnType, access}: { name: string; returnType?: string; access?: TsAccess;}): TsFunction {
+  setter({
+    name,
+    returnType,
+    access
+  }: {
+    name: string;
+    returnType?: string;
+    access?: TsAccess;
+  }): TsFunction {
     const tsSetter = new TsFunction({
       name: name,
       returnType: returnType,
       functionType: TsFunctionType.Setter,
-      access: access,
+      access: access
     });
     this._setters.push(tsSetter);
     return tsSetter;
@@ -131,10 +157,10 @@ export class TsClass extends TsDeclaration {
   private get _decoratedName() {
     const text: string[] = [];
     if (this._exports) {
-      text.push('export');
+      text.push("export");
     }
     if (this._isAbstract) {
-      text.push('abstract');
+      text.push("abstract");
     }
 
     text.push(this._type);
@@ -144,7 +170,7 @@ export class TsClass extends TsDeclaration {
       this._inheritance.forEach((inheritance) => {
         if (inheritance.type === TsDeclarationType.Class) {
           if (Array.isArray(inheritance.name)) {
-            throw new Error('Multiple inheritance is only for interfaces in Typescript');
+            throw new Error("Multiple inheritance is only for interfaces in Typescript");
           } else {
             const inheritanceStatement = `extends ${inheritance.name}`;
             text.push(inheritanceStatement);
@@ -152,7 +178,7 @@ export class TsClass extends TsDeclaration {
         }
         if (inheritance.type === TsDeclarationType.Interface) {
           if (Array.isArray(inheritance.name)) {
-            const inheritanceStatement = `implements ${inheritance.name.join(', ')}`;
+            const inheritanceStatement = `implements ${inheritance.name.join(", ")}`;
             text.push(inheritanceStatement);
           } else {
             const inheritanceStatement = `implements ${inheritance.name}`;
@@ -161,7 +187,7 @@ export class TsClass extends TsDeclaration {
         }
       });
     }
-    return text.join(' ');
+    return text.join(" ");
   }
 
   get name() {

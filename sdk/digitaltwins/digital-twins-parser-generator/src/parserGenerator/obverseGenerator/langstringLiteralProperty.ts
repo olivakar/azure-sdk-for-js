@@ -3,13 +3,13 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {TsClass, TsInterface, TsScope} from '../../codeGenerator';
-import {ParserGeneratorValues} from '../parserGeneratorValues';
-import {LiteralProperty} from './literalProperty';
-import {PropertyRepresentation} from './propertyRepresentation';
+import { TsClass, TsInterface, TsScope } from "../../codeGenerator";
+import { ParserGeneratorValues } from "../parserGeneratorValues";
+import { LiteralProperty } from "./literalProperty";
+import { PropertyRepresentation } from "./propertyRepresentation";
 
 export class LangStringLiteralProperty extends LiteralProperty {
-  public iterate(outerScope: TsScope, varName: {ref: string}): TsScope {
+  public iterate(outerScope: TsScope, varName: { ref: string }): TsScope {
     return outerScope.for(`const ${varName.ref} of Object.values(this.${this.propertyName} || {})`);
   }
 
@@ -22,28 +22,41 @@ export class LangStringLiteralProperty extends LiteralProperty {
   }
 
   public get propertyType(): string {
-    return 'LanguageStringType';
+    return "LanguageStringType";
   }
 
-  public get keyProperty() : string {
-    return '@language';
+  public get keyProperty(): string {
+    return "@language";
   }
 
-  public generateConstructorCode(obverseClass:TsClass, ctorScope: TsScope): void {
+  public generateConstructorCode(obverseClass: TsClass, ctorScope: TsScope): void {
     ctorScope.line(`this.${this.propertyName} = {};`);
     obverseClass.import(`import {LanguageStringType} from '../parser/type/langstringType';`);
   }
 
-  public addImports(obverseInterface:TsInterface) : void {
+  public addImports(obverseInterface: TsInterface): void {
     if (!obverseInterface.extends) {
       obverseInterface.import(`import {LanguageStringType} from '../parser/type/langstringType';`);
     }
   }
 
-  public addCaseToParseSwitch(dtdlVersion: number, obverseClass: TsClass, switchScope: TsScope, classIsAugmentable: boolean, classIsPartition: boolean, valueCountVar: string, definedInVar: string): void {
-    if (Object.prototype.hasOwnProperty.call(this.propertyDigest, dtdlVersion) && this.propertyDigest[dtdlVersion].allowed) {
+  public addCaseToParseSwitch(
+    dtdlVersion: number,
+    obverseClass: TsClass,
+    switchScope: TsScope,
+    classIsAugmentable: boolean,
+    classIsPartition: boolean,
+    valueCountVar: string,
+    definedInVar: string
+  ): void {
+    if (
+      Object.prototype.hasOwnProperty.call(this.propertyDigest, dtdlVersion) &&
+      this.propertyDigest[dtdlVersion].allowed
+    ) {
       const maxLenStr = this.propertyDigest[dtdlVersion].maxLength?.toString();
-      const patternStr = this.propertyDigest[dtdlVersion].pattern? `${obverseClass.name}.${this.propertyDigest}PropertyRegexPatternV${dtdlVersion}()` : undefined;
+      const patternStr = this.propertyDigest[dtdlVersion].pattern
+        ? `${obverseClass.name}.${this.propertyDigest}PropertyRegexPatternV${dtdlVersion}()`
+        : undefined;
       const defaultLangStr = this.propertyDigest[dtdlVersion].defaultLanguage;
       switchScope
         .line(`case '${this.propertyName}':`)
@@ -51,11 +64,11 @@ export class LangStringLiteralProperty extends LiteralProperty {
       if (!this.optional) {
         switchScope.line(`${this.missingPropertyVariable} = false;`);
       }
-      switchScope
-        .line(`this.${this.propertyName} = ValueParser.parseLangStringToken(this.${ParserGeneratorValues.IdentifierName}, '${this.propertyName}', propValue, '${defaultLangStr}', ${maxLenStr}, ${patternStr}, parsingErrors);`);
+      switchScope.line(
+        `this.${this.propertyName} = ValueParser.parseLangStringToken(this.${ParserGeneratorValues.IdentifierName}, '${this.propertyName}', propValue, '${defaultLangStr}', ${maxLenStr}, ${patternStr}, parsingErrors);`
+      );
 
-      switchScope
-        .line('continue;');
+      switchScope.line("continue;");
     }
   }
 }

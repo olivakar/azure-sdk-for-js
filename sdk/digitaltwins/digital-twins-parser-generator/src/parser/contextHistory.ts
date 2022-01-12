@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {VersionedContext} from './internal';
+import { VersionedContext } from "./internal";
 
 export class ContextHistory {
   private _versionedContexts: VersionedContext[];
@@ -9,7 +9,11 @@ export class ContextHistory {
 
   constructor(versionedContexts: VersionedContext[]) {
     this._versionedContexts = versionedContexts;
-    this._availableVersions = versionedContexts.map((vc) => vc.majorVersion).filter((v, i, a) => a.indexOf(v) === i).sort().join(', ');
+    this._availableVersions = versionedContexts
+      .map((vc) => vc.majorVersion)
+      .filter((v, i, a) => a.indexOf(v) === i)
+      .sort()
+      .join(", ");
   }
 
   get availableVersions() {
@@ -35,13 +39,19 @@ export class ContextHistory {
     return this._versionedContexts.some((vc) => vc.isIdentifierInContext(uriString));
   }
 
-  public getMatchingContext(majorVersion: number, minorVersion: number): VersionedContext | undefined {
+  public getMatchingContext(
+    majorVersion: number,
+    minorVersion: number
+  ): VersionedContext | undefined {
     let bestMatchContext: VersionedContext | undefined;
 
     for (const versionedContext of this._versionedContexts) {
-      if (versionedContext.majorVersion == majorVersion &&
+      if (
+        versionedContext.majorVersion == majorVersion &&
         versionedContext.minorVersion <= minorVersion &&
-        (bestMatchContext === undefined || versionedContext.minorVersion > bestMatchContext.minorVersion)) {
+        (bestMatchContext === undefined ||
+          versionedContext.minorVersion > bestMatchContext.minorVersion)
+      ) {
         bestMatchContext = versionedContext;
       }
     }

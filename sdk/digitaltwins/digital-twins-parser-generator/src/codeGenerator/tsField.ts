@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {CodeWriter, TsAccess, TsFieldParams} from './internal';
+import { CodeWriter, TsAccess, TsFieldParams } from "./internal";
 
 /**
  * A field declaration in Typescript.
@@ -24,7 +24,7 @@ export class TsField {
   private _optional?: boolean;
   private _summary?: string;
 
-  constructor({name, type, access, readonly, isStatic, summary, value, optional}: TsFieldParams) {
+  constructor({ name, type, access, readonly, isStatic, summary, value, optional }: TsFieldParams) {
     this._name = name;
     this._type = type;
     this._access = access;
@@ -67,13 +67,12 @@ export class TsField {
     return this._summary;
   }
 
-
   generateCode(codeWriter: CodeWriter) {
-    let prefix = this._access ? `${this._access} ` : ''; // js field
-    prefix = prefix.concat(this._isStatic ? `static ` : '');
-    prefix = prefix.concat(this._readonly ? `readonly ` : '');
-    const postfix = this._value ? ` = ${this._value}` : '';
-    const punctuation = this._optional ? '?:' : ':';
+    let prefix = this._access ? `${this._access} ` : ""; // js field
+    prefix = prefix.concat(this._isStatic ? `static ` : "");
+    prefix = prefix.concat(this._readonly ? `readonly ` : "");
+    const postfix = this._value ? ` = ${this._value}` : "";
+    const punctuation = this._optional ? "?:" : ":";
     if (this._summary) {
       codeWriter.writeLine(`// ${this._summary}`);
     }

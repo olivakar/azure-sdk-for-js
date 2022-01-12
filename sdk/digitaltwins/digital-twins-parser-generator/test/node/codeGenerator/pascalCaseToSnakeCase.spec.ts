@@ -2,16 +2,16 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {expect} from 'chai';
-import {pascalToSnake} from '../../../src/codeGenerator';
+import { expect } from "chai";
+import { pascalToSnake } from "../../../src/codeGenerator";
 
-describe('pascalToSnake', function() {
-  const testCases: {input: string; output: string}[] = [
-    {input: 'TEST', output: 'test'},
-    {input: 'EntityInfo', output: 'entity_info'},
-    {input: 'CodeGenerator', output: 'code_generator'},
-    {input: 'TsInterfaceException', output: 'ts_interface_exception'},
-    {input: 'TryMe', output: 'try_me'},
+describe("pascalToSnake", function() {
+  const testCases: { input: string; output: string }[] = [
+    { input: "TEST", output: "test" },
+    { input: "EntityInfo", output: "entity_info" },
+    { input: "CodeGenerator", output: "code_generator" },
+    { input: "TsInterfaceException", output: "ts_interface_exception" },
+    { input: "TryMe", output: "try_me" }
   ];
 
   testCases.forEach((testCase) => {

@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {CodeWriter, TsStatement} from './internal';
+import { CodeWriter, TsStatement } from "./internal";
 
 export class TsLine implements TsStatement {
   private _text: string;

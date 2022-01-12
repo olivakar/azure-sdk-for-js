@@ -1,9 +1,9 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {NameFormatter} from './nameFormatter';
-import {TsLibrary} from '../codeGenerator';
-import {TypeGenerator} from './typeGenerator';
+import { NameFormatter } from "./nameFormatter";
+import { TsLibrary } from "../codeGenerator";
+import { TypeGenerator } from "./typeGenerator";
 
 export class ExtensionKindEnumGenerator implements TypeGenerator {
   private readonly _extensionKinds: string[];
@@ -16,9 +16,12 @@ export class ExtensionKindEnumGenerator implements TypeGenerator {
   }
 
   generateCode(parserLibrary: TsLibrary) {
-    const tsEnum = parserLibrary.enum({name: NameFormatter.formatNameAsEnum('Extension'), exports: true});
+    const tsEnum = parserLibrary.enum({
+      name: NameFormatter.formatNameAsEnum("Extension"),
+      exports: true
+    });
     for (const extensionKind of this._extensionKinds) {
-      tsEnum.enum({name: NameFormatter.formatNameAsEnumValue(extensionKind)});
+      tsEnum.enum({ name: NameFormatter.formatNameAsEnumValue(extensionKind) });
     }
   }
 }

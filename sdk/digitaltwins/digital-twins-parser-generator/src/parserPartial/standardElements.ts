@@ -1,14 +1,20 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {AggregateContext, InDTMI, Model, ParsedObjectPropertyInfo, ParsingError} from '../parser/internal';
-import {ModelParserImpl} from './modelParserImpl';
-import {ParsingException} from '../parser/parsingException';
+import {
+  AggregateContext,
+  InDTMI,
+  Model,
+  ParsedObjectPropertyInfo,
+  ParsingError
+} from "../parser/internal";
+import { ModelParserImpl } from "./modelParserImpl";
+import { ParsingException } from "../parser/parsingException";
 
 export class StandardElements {
   // codegen-outline-begin fields
   private static _standardModel: Model;
-  private static _elementReferences: {[dtmi:string]: Set<InDTMI>}
+  private static _elementReferences: { [dtmi: string]: Set<InDTMI> };
   // codegen-outline-end
 
   // codegen-outline-begin methods
@@ -19,7 +25,12 @@ export class StandardElements {
     const objectPropertyInfoList: ParsedObjectPropertyInfo[] = [];
     const aggregateContext = new AggregateContext(true, true);
     const parsingErrors: ParsingError[] = [];
-    StandardElements.parseResourceIntoStandardModel(this.getDigestElements(), objectPropertyInfoList, aggregateContext, parsingErrors);
+    StandardElements.parseResourceIntoStandardModel(
+      this.getDigestElements(),
+      objectPropertyInfoList,
+      aggregateContext,
+      parsingErrors
+    );
 
     for (const objectPropertyInfo of objectPropertyInfoList) {
       if (!this._elementReferences[objectPropertyInfo.elementId]) {
@@ -27,7 +38,9 @@ export class StandardElements {
       }
 
       // TODO FOR LATER : How is 1 dtmi related to a set ?
-      this._elementReferences[objectPropertyInfo.elementId].add(new InDTMI(objectPropertyInfo.referencedElementId));
+      this._elementReferences[objectPropertyInfo.elementId].add(
+        new InDTMI(objectPropertyInfo.referencedElementId)
+      );
     }
     this._standardModel.setObjectProperties(objectPropertyInfoList, parsingErrors);
   }
@@ -50,9 +63,21 @@ export class StandardElements {
     return true;
   }
 
-  static parseResourceIntoStandardModel(resource: any[], objectPropertyInfoList: ParsedObjectPropertyInfo[], aggregateContext: AggregateContext, parsingErrors: ParsingError[]): void {
+  static parseResourceIntoStandardModel(
+    resource: any[],
+    objectPropertyInfoList: ParsedObjectPropertyInfo[],
+    aggregateContext: AggregateContext,
+    parsingErrors: ParsingError[]
+  ): void {
     for (const modelElement of resource) {
-      ModelParserImpl._parseObject(this._standardModel, objectPropertyInfoList, [], aggregateContext.getChildContext(modelElement, parsingErrors), parsingErrors, modelElement);
+      ModelParserImpl._parseObject(
+        this._standardModel,
+        objectPropertyInfoList,
+        [],
+        aggregateContext.getChildContext(modelElement, parsingErrors),
+        parsingErrors,
+        modelElement
+      );
     }
     if (parsingErrors.length !== 0) {
       throw new ParsingException(parsingErrors);
@@ -61,7 +86,7 @@ export class StandardElements {
   // codegen-outline-end
 
   static getDigestElements(): any {
-    throw new Error('GetDigestElements Not Implemented');
+    throw new Error("GetDigestElements Not Implemented");
   }
 }
 

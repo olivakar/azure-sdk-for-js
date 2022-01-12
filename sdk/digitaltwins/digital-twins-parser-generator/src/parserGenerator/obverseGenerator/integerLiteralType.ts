@@ -3,16 +3,16 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {LiteralType} from './literalType';
+import { LiteralType } from "./literalType";
 
 export class IntegerLiteralType implements LiteralType {
   canBeNull(isOptional: boolean): boolean {
     return isOptional;
   }
   getSingularType(isOptional: boolean): string {
-    return isOptional ? 'number|undefined' : 'number';
+    return isOptional ? "number|undefined" : "number";
   }
   getInitialValue(isOptional: boolean): string {
-    return isOptional ? 'undefined' : '0';
+    return isOptional ? "undefined" : "0";
   }
 }

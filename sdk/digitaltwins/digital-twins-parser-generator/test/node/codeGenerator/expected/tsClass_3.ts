@@ -7,6 +7,5 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-import * as test from 'foo';
-export class testClass {
-}
+import * as test from "foo";
+export class testClass {}

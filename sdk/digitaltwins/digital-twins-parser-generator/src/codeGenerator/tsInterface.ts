@@ -9,9 +9,9 @@ import {
   TsFieldParams,
   TsFunction,
   TsFunctionType,
-  TsInterfaceParams,
-} from './internal';
-import {TsInline} from './tsInline';
+  TsInterfaceParams
+} from "./internal";
+import { TsInline } from "./tsInline";
 
 export class TsInterface extends TsDeclaration {
   private _thingToExtend?: string;
@@ -19,8 +19,8 @@ export class TsInterface extends TsDeclaration {
   private _inlines: TsInline[];
   private _methods: TsFunction[];
 
-  constructor({name, exports, thingToExtend}: TsInterfaceParams) {
-    super({name: name, type: TsDeclarationType.Interface, exports: exports});
+  constructor({ name, exports, thingToExtend }: TsInterfaceParams) {
+    super({ name: name, type: TsDeclarationType.Interface, exports: exports });
     this._thingToExtend = thingToExtend;
 
     this._fields = [];
@@ -42,11 +42,11 @@ export class TsInterface extends TsDeclaration {
     return this;
   }
 
-  method({name, returnType}: { name: string; returnType?: string}): TsFunction {
+  method({ name, returnType }: { name: string; returnType?: string }): TsFunction {
     const tsMethod = new TsFunction({
       name: name,
       returnType: returnType,
-      functionType: TsFunctionType.Method,
+      functionType: TsFunctionType.Method
     });
     this._methods.push(tsMethod);
     return tsMethod;
@@ -56,19 +56,18 @@ export class TsInterface extends TsDeclaration {
     this._inlines.push(new TsInline(filepath, identifier));
   }
 
-
   private get _decoratedName(): string {
     const text: string[] = [];
     if (this._exports) {
-      text.push('export');
+      text.push("export");
     }
 
     text.push(`interface ${this._name}`);
 
-    if (this._thingToExtend !== undefined && this._thingToExtend !== '') {
+    if (this._thingToExtend !== undefined && this._thingToExtend !== "") {
       text.push(`extends ${this._thingToExtend}`);
     }
-    return text.join(' ');
+    return text.join(" ");
   }
 
   generateCode(codeWriter: CodeWriter) {

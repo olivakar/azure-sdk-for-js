@@ -5,9 +5,9 @@
 
 export interface LiteralType {
   // Indicates whether it is possible for the type to be null.
-  canBeNull(isOptional:boolean) : boolean;
+  canBeNull(isOptional: boolean): boolean;
   // Gets the type declaration for a singular value.
-  getSingularType(isOptional:boolean) : string;
+  getSingularType(isOptional: boolean): string;
   // Gets an appropriate initial value.
-  getInitialValue(isOptional:boolean) : string;
+  getInitialValue(isOptional: boolean): string;
 }

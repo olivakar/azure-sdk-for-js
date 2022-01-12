@@ -2,8 +2,8 @@
 // Licensed under the MIT license.
 /* eslint-disable valid-jsdoc */
 
-import {SupplementalConstraintDigest} from './metamodelDigest';
-import {TsScope} from '../codeGenerator';
+import { SupplementalConstraintDigest } from "./metamodelDigest";
+import { TsScope } from "../codeGenerator";
 
 export class SupplementalConstraint {
   private _propertyName: string;
@@ -18,17 +18,25 @@ export class SupplementalConstraint {
     this._valueConstraintInitializers = [];
 
     if (supplementalConstraintDigest.requiredTypes !== undefined) {
-      const requiredTypes = supplementalConstraintDigest.requiredTypes.map((value) => `'${value}'`).join(', ');
+      const requiredTypes = supplementalConstraintDigest.requiredTypes
+        .map((value) => `'${value}'`)
+        .join(", ");
       const requiredTypesString = supplementalConstraintDigest.requiredTypesString;
       // requiredTypes, requiredTypesString
-      this._valueConstraintInitializers.push(`requiredTypes: [${requiredTypes}], requiredTypesString: "${requiredTypesString}" `);
+      this._valueConstraintInitializers.push(
+        `requiredTypes: [${requiredTypes}], requiredTypesString: "${requiredTypesString}" `
+      );
     }
 
     if (supplementalConstraintDigest.requiredValues !== undefined) {
-      const requiredValues = supplementalConstraintDigest.requiredValues.map((value) => `'${value}'`).join(', ');
+      const requiredValues = supplementalConstraintDigest.requiredValues
+        .map((value) => `'${value}'`)
+        .join(", ");
       const requiredValuesString = supplementalConstraintDigest.requiredValuesString;
       // requiredValues, requiredValuesString
-      this._valueConstraintInitializers.push(`requiredValues: [${requiredValues}], requiredValuesString: "${requiredValuesString}"`);
+      this._valueConstraintInitializers.push(
+        `requiredValues: [${requiredValues}], requiredValuesString: "${requiredValuesString}"`
+      );
     }
   }
 
@@ -40,7 +48,7 @@ export class SupplementalConstraint {
   addConstraint(scope: TsScope, infoVariableName: string): void {
     scope.line(`${infoVariableName}.addConstraint(
       "${this._propertyName}", 
-      {${this._valueConstraintInitializers.join(', ')}}
+      {${this._valueConstraintInitializers.join(", ")}}
     )`);
   }
 }

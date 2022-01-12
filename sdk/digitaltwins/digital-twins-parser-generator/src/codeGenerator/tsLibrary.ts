@@ -15,16 +15,16 @@ import {
   TsMultiLine,
   TsTypeAlias,
   TsTypeAliasParams,
-  pascalToCamel,
-} from './internal';
-import fs from 'fs';
+  pascalToCamel
+} from "./internal";
+import fs from "fs";
 
-const FILE_EXTENSION = '.ts';
-const DIR_SEP = '/';
-const COPYRIGHT_TEXT = '// Copyright (c) Microsoft Corporation.\r\n// Licensed under the MIT license.';
+const FILE_EXTENSION = ".ts";
+const DIR_SEP = "/";
+const COPYRIGHT_TEXT =
+  "// Copyright (c) Microsoft Corporation.\r\n// Licensed under the MIT license.";
 
 type TsLibraryObject = TsFunction | TsClass | TsEnum | TsInterface | TsTypeAlias;
-
 
 /**
  * Class that is responsible for writing generated code to files.
@@ -44,7 +44,7 @@ export class TsLibrary {
 
   libraryHeader(text: string) {
     if (this._libraryHeader !== undefined) {
-      throw new Error('Cannot overwrite existing library header');
+      throw new Error("Cannot overwrite existing library header");
     }
     const tsMultiLine = new TsMultiLine(text);
     this._libraryHeader = tsMultiLine;
@@ -103,7 +103,7 @@ export class TsLibrary {
 
   generateInternalFile(): string {
     // generate internal.ts file
-    const internalFilePath = this._outputDirectory + DIR_SEP + 'internal' + FILE_EXTENSION;
+    const internalFilePath = this._outputDirectory + DIR_SEP + "internal" + FILE_EXTENSION;
     const codeWriter = new CodeWriter(internalFilePath);
     codeWriter.writeLine(COPYRIGHT_TEXT);
     codeWriter.break();
@@ -112,12 +112,11 @@ export class TsLibrary {
       codeWriter.writeLine(`export * from './${fileName}';`);
     });
 
-
     return internalFilePath;
   }
 
-  generateIndexForGenerated() : string {
-    const indexFilePath = this._outputDirectory + DIR_SEP + 'index.ts';
+  generateIndexForGenerated(): string {
+    const indexFilePath = this._outputDirectory + DIR_SEP + "index.ts";
     const codeWriterIndex = new CodeWriter(indexFilePath);
     codeWriterIndex.writeLine(COPYRIGHT_TEXT);
     codeWriterIndex.break();
@@ -125,8 +124,8 @@ export class TsLibrary {
     return indexFilePath;
   }
 
-  generateFiles(generateInternal?: boolean) : string[] {
-    const filePaths : string[] = [];
+  generateFiles(generateInternal?: boolean): string[] {
+    const filePaths: string[] = [];
     if (!fs.existsSync(this._outputDirectory)) {
       fs.mkdirSync(this._outputDirectory);
     }
@@ -148,11 +147,11 @@ export class TsLibrary {
         // TODO no-empty and no-unused-vars not needed once full parser generation works.
         // Expected putput of unit Tests have been chnaged to pass as well.
         codeWriter.writeLine(COPYRIGHT_TEXT);
-        codeWriter.writeLine('/* eslint-disable valid-jsdoc */');
-        codeWriter.writeLine('/* eslint-disable guard-for-in */');
-        codeWriter.writeLine('/* eslint-disable no-empty */');
-        codeWriter.writeLine('/* eslint-disable no-unused-vars */');
-        codeWriter.writeLine('/* eslint-disable sort-imports */');
+        codeWriter.writeLine("/* eslint-disable valid-jsdoc */");
+        codeWriter.writeLine("/* eslint-disable guard-for-in */");
+        codeWriter.writeLine("/* eslint-disable no-empty */");
+        codeWriter.writeLine("/* eslint-disable no-unused-vars */");
+        codeWriter.writeLine("/* eslint-disable sort-imports */");
         codeWriter.break();
       }
       type.generateCode(codeWriter);

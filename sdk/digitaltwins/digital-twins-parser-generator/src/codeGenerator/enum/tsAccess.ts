@@ -6,7 +6,7 @@
  * Access levels for Typescript Classes
  */
 export enum TsAccess {
-  Public = 'public', // var / let foo
-  Protected = 'protected', // protected foo
-  Private = 'private', // private foo
+  Public = "public", // var / let foo
+  Protected = "protected", // protected foo
+  Private = "private" // private foo
 }

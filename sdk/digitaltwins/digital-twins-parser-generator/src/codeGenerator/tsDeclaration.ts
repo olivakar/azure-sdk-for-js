@@ -1,8 +1,14 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {CodeWriter, TsDeclarationParams, TsDeclarationType, TsImport, TsMultiLine, TsMultiLineDocString} from './internal';
-
+import {
+  CodeWriter,
+  TsDeclarationParams,
+  TsDeclarationType,
+  TsImport,
+  TsMultiLine,
+  TsMultiLineDocString
+} from "./internal";
 
 export class TsDeclaration {
   protected _name: string;
@@ -13,7 +19,7 @@ export class TsDeclaration {
   private _docString?: TsMultiLineDocString;
   private _prefixCode?: TsMultiLine;
 
-  constructor({name, type, exports = false}: TsDeclarationParams) {
+  constructor({ name, type, exports = false }: TsDeclarationParams) {
     this._name = name;
     this._type = type;
     this._exports = exports;

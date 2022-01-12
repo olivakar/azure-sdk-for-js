@@ -6,7 +6,7 @@
 // is reduced because we don't need the full functionality of
 // ModelPartitionCollection.cs
 
-const TYPE_KEYWORD = '@type';
+const TYPE_KEYWORD = "@type";
 
 export class PartitionTypeCollection {
   private static _partitionTypeStrings: Set<string>;
@@ -17,9 +17,11 @@ export class PartitionTypeCollection {
   static initialize() {
     this._partitionTypeStrings = new Set<string>();
 
-    this._partitionTypeStrings.add('Interface');
+    this._partitionTypeStrings.add("Interface");
 
-    this._partitionTypeDescription = Array.from(this._partitionTypeStrings.values()).map((s) => `'${s}'`).join(' or ');
+    this._partitionTypeDescription = Array.from(this._partitionTypeStrings.values())
+      .map((s) => `'${s}'`)
+      .join(" or ");
   }
   /* TODO everything above here from the previous comment block should be codegenned. */
 
@@ -28,20 +30,20 @@ export class PartitionTypeCollection {
     return this._partitionTypeDescription;
   }
 
-  public static hasPartitionType(obj: {[prop: string]: any}): boolean {
+  public static hasPartitionType(obj: { [prop: string]: any }): boolean {
     if (!Object.prototype.hasOwnProperty.call(obj, TYPE_KEYWORD)) {
       return false;
     }
 
     const typeToken = obj[TYPE_KEYWORD];
 
-    if (typeof typeToken === 'string') {
+    if (typeof typeToken === "string") {
       return this._partitionTypeStrings.has(typeToken);
     }
 
     if (Array.isArray(typeToken)) {
       for (const subToken of typeToken) {
-        if (typeof subToken !== 'string') {
+        if (typeof subToken !== "string") {
           return false;
         }
 

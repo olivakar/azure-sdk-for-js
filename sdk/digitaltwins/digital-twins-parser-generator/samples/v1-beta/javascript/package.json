@@ -1,0 +1,29 @@
+{
+  "name": "azure-digital-twins-parser-generator-samples-js-beta",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Azure Digital Twins Model Parser Generator client library samples for JavaScript (Beta)",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Azure/azure-sdk-for-js.git",
+    "directory": "sdk/digitaltwins/digital-twins-parser-generator"
+  },
+  "keywords": [
+    "azure",
+    "cloud",
+    "typescript"
+  ],
+  "author": "Microsoft Corporation",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Azure/azure-sdk-for-js/issues"
+  },
+  "homepage": "https://github.com/Azure/azure-sdk-for-js/tree/main/sdk/digitaltwins/digital-twins-parser-generator",
+  "dependencies": {
+    "@azure/digital-twins-parser-generator": "next",
+    "dotenv": "latest"
+  }
+}

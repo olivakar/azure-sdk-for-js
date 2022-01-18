@@ -6,7 +6,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-import { EntityInfo } from "./internal";
-export interface LatentTypeInfo extends EntityInfo {
-  entityKind: "latenttype";
+import {EntityInfo} from './internal';
+export interface LatentTypeInfo extends EntityInfo
+{
+  entityKind: 'latenttype';
 }

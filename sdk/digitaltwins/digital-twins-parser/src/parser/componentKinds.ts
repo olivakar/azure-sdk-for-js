@@ -6,4 +6,4 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-export type ComponentKinds = "component";
+export type ComponentKinds = 'component'

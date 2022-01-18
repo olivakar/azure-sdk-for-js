@@ -6,18 +6,18 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-import { EntityInfo } from "./internal";
-import { LanguageStringType } from "./internal";
+import {EntityInfo} from './internal';
+import {LanguageStringType} from '../parser';
 /**
  * A static class that holds various helper functions.
- **/
+**/
 export class Helpers {
   static areListsIdEqual(list1: EntityInfo[], list2: EntityInfo[]): boolean {
     if (list1.length !== list2.length) {
       return false;
     }
 
-    for (let i = 0; i < list1.length; i++) {
+    for (let i=0; i<list1.length; i++) {
       if (list1[i].id !== list2[i].id) {
         return false;
       }
@@ -31,7 +31,7 @@ export class Helpers {
       return false;
     }
 
-    for (let i = 0; i < list1.length; i++) {
+    for (let i=0; i<list1.length; i++) {
       if (list1[i].id !== undefined && list2[i].id !== undefined) {
         if (list1[i].id !== list2[i].id) {
           return false;
@@ -48,10 +48,7 @@ export class Helpers {
     return true;
   }
 
-  static areDictioanriesIdEqual(
-    dict1: { [name: string]: EntityInfo },
-    dict2: { [name: string]: EntityInfo }
-  ): boolean {
+  static areDictioanriesIdEqual(dict1: {[name:string]: EntityInfo}, dict2: {[name:string]: EntityInfo}): boolean {
     if (Object.keys(dict1).length !== Object.keys(dict2).length) {
       return false;
     }
@@ -66,10 +63,7 @@ export class Helpers {
     return true;
   }
 
-  static areDictionariesIdOrLiteralEqual(
-    dict1: { [name: string]: any },
-    dict2: { [name: string]: any }
-  ): boolean {
+  static areDictionariesIdOrLiteralEqual(dict1: {[name:string]: any}, dict2: {[name:string]: any}): boolean {
     if (Object.keys(dict1).length !== Object.keys(dict2).length) {
       return false;
     }
@@ -87,10 +81,7 @@ export class Helpers {
   }
 
   // codegen-outline-begin methods
-  static areDictionariesLiteralEqual(
-    dict1: LanguageStringType,
-    dict2: LanguageStringType
-  ): boolean {
+  static areDictionariesLiteralEqual(dict1: LanguageStringType, dict2: LanguageStringType): boolean {
     if (Object.keys(dict1).length !== Object.keys(dict2).length) {
       return false;
     }
@@ -103,11 +94,11 @@ export class Helpers {
   }
 
   static getDataTypeString(datatype: any): string {
-    throw new Error("getDataTypeString is unnecessary in Typescript.");
+    throw new Error('getDataTypeString is unnecessary in Typescript.');
   }
 
   static getJsonTextFromToken(token: any): string {
-    throw new Error("getJsonTextFromToken is unnecessary in Typescript.");
+    throw new Error('getJsonTextFromToken is unnecessary in Typescript.');
   }
-  // codegen-outline-end
+// codegen-outline-end
 }

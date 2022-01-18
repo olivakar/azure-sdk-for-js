@@ -6,14 +6,4 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-export type PrimitiveSchemaKinds =
-  | "boolean"
-  | "date"
-  | "datetime"
-  | "double"
-  | "duration"
-  | "float"
-  | "integer"
-  | "long"
-  | "string"
-  | "time";
+export type PrimitiveSchemaKinds = 'boolean'|'date'|'datetime'|'double'|'duration'|'float'|'integer'|'long'|'string'|'time'

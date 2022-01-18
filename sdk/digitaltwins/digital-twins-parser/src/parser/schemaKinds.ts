@@ -6,18 +6,4 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-export type SchemaKinds =
-  | "array"
-  | "boolean"
-  | "date"
-  | "datetime"
-  | "double"
-  | "duration"
-  | "enum"
-  | "float"
-  | "integer"
-  | "long"
-  | "map"
-  | "object"
-  | "string"
-  | "time";
+export type SchemaKinds = 'array'|'boolean'|'date'|'datetime'|'double'|'duration'|'enum'|'float'|'integer'|'long'|'map'|'object'|'string'|'time'

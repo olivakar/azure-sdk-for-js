@@ -6,9 +6,4 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-export type SchemaFieldKinds =
-  | "commandpayload"
-  | "field"
-  | "mapvalue"
-  | "commandrequest"
-  | "commandresponse";
+export type SchemaFieldKinds = 'commandpayload'|'field'|'mapvalue'|'commandrequest'|'commandresponse'

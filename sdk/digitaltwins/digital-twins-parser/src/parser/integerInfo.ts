@@ -6,7 +6,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-import { NumericSchemaInfo } from "./internal";
-export interface IntegerInfo extends NumericSchemaInfo {
-  entityKind: "integer";
+import {NumericSchemaInfo} from './internal';
+export interface IntegerInfo extends NumericSchemaInfo
+{
+  entityKind: 'integer';
 }

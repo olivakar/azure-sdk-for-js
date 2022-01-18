@@ -6,7 +6,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-import { SupplementalTypeInfo } from "./internal";
-export interface SupplementalTypeCollection {
+import {SupplementalTypeInfo} from './internal';
+export interface SupplementalTypeCollection
+{
   supplementalTypes: Map<string, SupplementalTypeInfo>;
 }

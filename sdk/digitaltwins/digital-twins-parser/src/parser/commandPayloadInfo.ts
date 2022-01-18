@@ -6,8 +6,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-import { SchemaFieldInfo } from "./internal";
-import { SchemaInfo } from "./internal";
-export interface CommandPayloadInfo extends SchemaFieldInfo {
-  entityKind: "commandpayload" | "commandrequest" | "commandresponse";
+import {SchemaFieldInfo} from './internal';
+import {SchemaInfo} from './internal';
+export interface CommandPayloadInfo extends SchemaFieldInfo
+{
+  entityKind: 'commandpayload'|'commandrequest'|'commandresponse';
 }

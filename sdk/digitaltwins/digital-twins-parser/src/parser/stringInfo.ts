@@ -6,7 +6,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-import { PrimitiveSchemaInfo } from "./internal";
-export interface StringInfo extends PrimitiveSchemaInfo {
-  entityKind: "string";
+import {PrimitiveSchemaInfo} from './internal';
+export interface StringInfo extends PrimitiveSchemaInfo
+{
+  entityKind: 'string';
 }

@@ -6,7 +6,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-import { NamedEntityInfo } from "./internal";
-export interface NamedLatentTypeInfo extends NamedEntityInfo {
-  entityKind: "namedlatenttype";
+import {NamedEntityInfo} from './internal';
+export interface NamedLatentTypeInfo extends NamedEntityInfo
+{
+  entityKind: 'namedlatenttype';
 }

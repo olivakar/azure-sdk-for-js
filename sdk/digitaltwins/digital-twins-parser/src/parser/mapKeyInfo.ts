@@ -6,9 +6,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-import { NamedEntityInfo } from "./internal";
-import { StringInfo } from "./internal";
-export interface MapKeyInfo extends NamedEntityInfo {
-  entityKind: "mapkey";
+import {NamedEntityInfo} from './internal';
+import {StringInfo} from './internal';
+export interface MapKeyInfo extends NamedEntityInfo
+{
+  entityKind: 'mapkey';
   schema?: StringInfo;
 }

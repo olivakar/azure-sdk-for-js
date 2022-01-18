@@ -6,7 +6,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-import { PrimitiveSchemaInfo } from "./internal";
-export interface NumericSchemaInfo extends PrimitiveSchemaInfo {
-  entityKind: "double" | "float" | "integer" | "long";
+import {PrimitiveSchemaInfo} from './internal';
+export interface NumericSchemaInfo extends PrimitiveSchemaInfo
+{
+  entityKind: 'double'|'float'|'integer'|'long';
 }

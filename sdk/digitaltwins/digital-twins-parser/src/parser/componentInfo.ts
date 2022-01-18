@@ -6,9 +6,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-import { ContentInfo } from "./internal";
-import { InterfaceInfo } from "./internal";
-export interface ComponentInfo extends ContentInfo {
-  entityKind: "component";
+import {ContentInfo} from './internal';
+import {InterfaceInfo} from './internal';
+export interface ComponentInfo extends ContentInfo
+{
+  entityKind: 'component';
   schema?: InterfaceInfo;
 }

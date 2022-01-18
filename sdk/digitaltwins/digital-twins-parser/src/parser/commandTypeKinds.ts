@@ -6,4 +6,4 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-export type CommandTypeKinds = "commandtype";
+export type CommandTypeKinds = 'commandtype'

@@ -6,7 +6,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-import { SchemaInfo } from "./internal";
-export interface ComplexSchemaInfo extends SchemaInfo {
-  entityKind: "array" | "enum" | "map" | "object";
+import {SchemaInfo} from './internal';
+export interface ComplexSchemaInfo extends SchemaInfo
+{
+  entityKind: 'array'|'enum'|'map'|'object';
 }

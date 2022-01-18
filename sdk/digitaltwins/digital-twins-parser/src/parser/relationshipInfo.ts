@@ -6,13 +6,14 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-import { ContentInfo } from "./internal";
-import { PropertyInfo } from "./internal";
-import { InDTMI } from "./internal";
-export interface RelationshipInfo extends ContentInfo {
-  entityKind: "relationship";
-  maxMultiplicity?: number | undefined;
-  minMultiplicity?: number | undefined;
+import {ContentInfo} from './internal';
+import {PropertyInfo} from './internal';
+import {InDTMI} from '../parser/internalDtmi';
+export interface RelationshipInfo extends ContentInfo
+{
+  entityKind: 'relationship';
+  maxMultiplicity?: number|undefined;
+  minMultiplicity?: number|undefined;
   properties?: PropertyInfo[];
   target?: string;
   writable?: boolean;

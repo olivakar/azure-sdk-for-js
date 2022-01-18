@@ -6,17 +6,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-import { SchemaInfo } from "./internal";
-export interface PrimitiveSchemaInfo extends SchemaInfo {
-  entityKind:
-    | "boolean"
-    | "date"
-    | "datetime"
-    | "double"
-    | "duration"
-    | "float"
-    | "integer"
-    | "long"
-    | "string"
-    | "time";
+import {SchemaInfo} from './internal';
+export interface PrimitiveSchemaInfo extends SchemaInfo
+{
+  entityKind: 'boolean'|'date'|'datetime'|'double'|'duration'|'float'|'integer'|'long'|'string'|'time';
 }

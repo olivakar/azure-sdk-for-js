@@ -6,4 +6,4 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-export type NumericSchemaKinds = "double" | "float" | "integer" | "long";
+export type NumericSchemaKinds = 'double'|'float'|'integer'|'long'

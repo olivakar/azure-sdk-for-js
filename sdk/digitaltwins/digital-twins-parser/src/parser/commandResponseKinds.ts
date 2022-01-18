@@ -6,4 +6,4 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-export type CommandResponseKinds = "commandresponse";
+export type CommandResponseKinds = 'commandresponse'

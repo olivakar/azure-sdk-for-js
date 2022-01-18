@@ -6,37 +6,4 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-export type EntityKinds =
-  | "array"
-  | "boolean"
-  | "command"
-  | "commandpayload"
-  | "commandtype"
-  | "component"
-  | "date"
-  | "datetime"
-  | "double"
-  | "duration"
-  | "enum"
-  | "enumvalue"
-  | "field"
-  | "float"
-  | "integer"
-  | "interface"
-  | "long"
-  | "map"
-  | "mapkey"
-  | "mapvalue"
-  | "object"
-  | "property"
-  | "relationship"
-  | "string"
-  | "telemetry"
-  | "time"
-  | "unit"
-  | "unitattribute"
-  | "commandrequest"
-  | "commandresponse"
-  | "latenttype"
-  | "namedlatenttype"
-  | "reference";
+export type EntityKinds = 'array'|'boolean'|'command'|'commandpayload'|'commandtype'|'component'|'date'|'datetime'|'double'|'duration'|'enum'|'enumvalue'|'field'|'float'|'integer'|'interface'|'long'|'map'|'mapkey'|'mapvalue'|'object'|'property'|'relationship'|'string'|'telemetry'|'time'|'unit'|'unitattribute'|'commandrequest'|'commandresponse'|'latenttype'|'namedlatenttype'|'reference'

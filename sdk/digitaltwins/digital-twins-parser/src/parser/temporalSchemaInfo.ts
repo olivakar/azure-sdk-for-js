@@ -6,7 +6,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable sort-imports */
 
-import { PrimitiveSchemaInfo } from "./internal";
-export interface TemporalSchemaInfo extends PrimitiveSchemaInfo {
-  entityKind: "date" | "datetime" | "duration" | "time";
+import {PrimitiveSchemaInfo} from './internal';
+export interface TemporalSchemaInfo extends PrimitiveSchemaInfo
+{
+  entityKind: 'date'|'datetime'|'duration'|'time';
 }
